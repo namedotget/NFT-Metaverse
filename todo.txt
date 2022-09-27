@@ -1,0 +1,62 @@
+STACK: 
+    Front end: React.js
+    Back end: Next.js/Firebase
+    3D World: react-three/fiber
+    Web3: web3.js
+    Styling: scss
+
+3D World: 
+    - generates ground + props in loop , spaces are reserved for interaction scenes 
+    Content:
+        - textures for ground and walls
+        - texture/img for skybox
+        - foliage, key frames are optional 
+        - buttons, switches and control panels w/keyframes
+        - doors/portals w/keyframes
+        - various art w/keyframes
+        - reward coin w/keyframes
+        - main character with walking keyframes
+        - a container/object that holds the mintable nft w/keyframes
+
+Smart Contracts:
+    ERC-721 Low Gas:
+        - standard NFT w/ whitelisting option
+        - minting function for NFT also mints ERC-20 reward tokens
+        - artist recieves royalty on sale
+        - NFT's carry attributes that affect things in the 3D world, only the owner
+    
+    ERC-20:
+        - Ownable (artist owns the currency)
+        - Pause-able (artist can pause currency transactions for updates or emergencies)
+        - Mintable (tokens are minted & bought at the same time as the ERC-721)
+    
+    Voting:
+        - Ownable (artist is manager of voting)
+        - Admins (artist may assign admins)
+        - Link to ERC-20 contract to check account balances of wallets
+
+    Redeeming:
+        - Mint NFTs with ERC-20
+        - Mint exclusive white-listed NFTs with ERC-20
+        - Buy exclusive merch
+    
+    3D-World Interaction:
+        - check if wallet of owner of all ERC-721 contracts 
+        - add ERC-721 contract to list
+        - read attribute of 
+
+Pages & Components:
+
+    Home Page:
+        - connect wallet
+        - open World
+        - loading screen
+    NFTs:
+        - minted NFT's
+            - display in card w/ eth value & ERC-20 value
+        
+        - un-minted collections w/ eth value & ERC-20 value
+    Profile:
+        - ERC-20 balance / voting power
+        - News Letter?
+        - Voting (users can vote on updates)
