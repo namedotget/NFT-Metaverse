@@ -40,7 +40,7 @@ contract Energy is ERC20, ERC20Burnable, Pausable, Ownable {
     }
 
     function mint(address to, uint256 amount) public isVendor {
-        _mint(to, amount * 10 ** 18);
+        _mint(to, amount);
     }
 
     function _beforeTokenTransfer(address from, address to, uint256 amount)

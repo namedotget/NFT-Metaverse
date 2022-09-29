@@ -19,6 +19,7 @@ contract LowGasNFT is ERC721, Ownable {
   using Counters for Counters.Counter;
   Counters.Counter private supply;
 
+  address public creator;
   string public uriPrefix = "";
   string public uriSuffix = ".json";
   string public hiddenMetadataUri;
@@ -26,6 +27,8 @@ contract LowGasNFT is ERC721, Ownable {
   uint256 public cost = 0.02 ether;
   uint256 public maxSupply = 20;
   uint256 public maxMintAmountPerTx = 2;
+  //reward points per mint
+  uint256 private rewardRate = cost * 1000;
 
   bool public paused = true;
   bool public revealed = false;
@@ -33,13 +36,19 @@ contract LowGasNFT is ERC721, Ownable {
   constructor(string memory name, string memory symbol, string memory hiddenUri, address vendorAddress) ERC721(name, symbol) {
     setHiddenMetadataUri(hiddenUri);
     vendor = Vendor(vendorAddress);
-    vendor.register(address(this));
+    creator = msg.sender;
+    vendor.register(address(this), msg.sender);
   }
 
   modifier mintCompliance(uint256 _mintAmount) {
     require(_mintAmount > 0 && _mintAmount <= maxMintAmountPerTx, "Invalid mint amount!");
     require(supply.current() + _mintAmount <= maxSupply, "Max supply exceeded!");
     _;
+  }
+
+  function setVendor(address vendorContract) public onlyOwner {
+    vendor = Vendor(vendorContract);
+    vendor.register(address(this), msg.sender);
   }
 
   function totalSupply() public view returns (uint256) {
@@ -49,8 +58,10 @@ contract LowGasNFT is ERC721, Ownable {
   function mint(uint256 _mintAmount) public payable mintCompliance(_mintAmount) {
     require(!paused, "The contract is paused!");
     require(msg.value >= cost * _mintAmount, "Insufficient funds!");
-
+    // This will give sender NFTS
     _mintLoop(msg.sender, _mintAmount);
+    // This will give sender Rewards
+    vendor.mintRewardToken(msg.sender , _mintAmount * rewardRate);
   }
   
   function mintForAddress(uint256 _mintAmount, address _receiver) public mintCompliance(_mintAmount) onlyOwner {
@@ -133,12 +144,15 @@ contract LowGasNFT is ERC721, Ownable {
   }
 
   function withdraw() public onlyOwner {
-    // This will pay HashLips 5% of the initial sale.
-    // You can remove this if you want, or keep it in to support HashLips and his channel.
+    // This will pay the creator 7.5% of sale
     // =============================================================================
-    (bool hs, ) = payable(0x943590A42C27D08e3744202c4Ae5eD55c2dE240D).call{value: address(this).balance * 5 / 100}("");
-    require(hs);
+    (bool cr, ) = payable(creator).call{value: address(this).balance * 75/1000}("");
+    require(cr);
+
+      // This will pay the Developer 2.5% of sale value
     // =============================================================================
+    (bool dev, ) = payable(0xaf78233fa8E92F7E4B9C32C97f30de8327b07687).call{value: address(this).balance * 25/1000}("");
+    require(dev);
 
     // This will transfer the remaining contract balance to the owner.
     // Do not remove this otherwise you will not be able to withdraw the funds.
@@ -153,7 +167,6 @@ contract LowGasNFT is ERC721, Ownable {
       supply.increment();
       _safeMint(_receiver, supply.current());
     }
-    vendor.mintRewardToken(msg.sender, _mintAmount * 100);
   }
 
   function _baseURI() internal view virtual override returns (string memory) {
