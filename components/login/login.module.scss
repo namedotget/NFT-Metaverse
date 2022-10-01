@@ -1,0 +1,10 @@
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../../public/login_background.jpg");
+  background-size: 100vw 100vh;
+}
