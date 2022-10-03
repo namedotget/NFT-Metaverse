@@ -1,9 +1,17 @@
+@font-face {
+  font-family: custom;
+  src: url("../public/data/fonts/Miso-3mVp.otf");
+}
+@font-face {
+  font-family: custom2;
+  src: url("../public/ModernBohemian-lXdd.ttf");
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: custom2;
 }
 
 a {
@@ -24,8 +32,19 @@ a {
   width: 100vw;
   height: 100vh;
   > * {
-    animation: fade-in 2s;
+    animation: fade-in 0.5s;
   }
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../public/login_background.jpg");
+  background-size: 150% 150%;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -41,7 +60,6 @@ a {
 @keyframes fade-in {
   0% {
     opacity: 0.1;
-    background: black;
   }
   100% {
     opacity: 1;

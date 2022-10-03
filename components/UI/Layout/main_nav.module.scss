@@ -1,0 +1,16 @@
+.header {
+  position: fixed;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: white;
+  width: 100%;
+  z-index: 1;
+  .nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    gap: 5vw;
+  }
+}

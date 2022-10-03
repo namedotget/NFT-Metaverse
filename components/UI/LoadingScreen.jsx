@@ -1,4 +1,4 @@
-import classes from "loading-screen.module.scss";
+import classes from "./loading_screen.module.scss";
 
 export default function LoadingScreen() {
   <div className={classes.example}>

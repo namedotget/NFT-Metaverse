@@ -5,18 +5,7 @@ STACK:
     Web3: web3.js
     Styling: scss
 
-3D World: 
-    - generates ground + props in loop , spaces are reserved for interaction scenes 
-    Content:
-        - textures for ground and walls
-        - texture/img for skybox
-        - foliage, key frames are optional 
-        - buttons, switches and control panels w/keyframes
-        - doors/portals w/keyframes
-        - various art w/keyframes
-        - reward coin w/keyframes
-        - main character with walking keyframes
-        - a container/object that holds the mintable nft w/keyframes
+
 
 Smart Contracts:
     ERC-721 Low Gas:
@@ -60,3 +49,13 @@ Pages & Components:
         - ERC-20 balance / voting power
         - News Letter?
         - Voting (users can vote on updates)
+
+
+
+
+
+TODO :
+
+    - Auth for Web3 w/ moralis
+    - Page Transition Animation
+    - Home Page Styling
