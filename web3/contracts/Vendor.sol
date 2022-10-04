@@ -52,20 +52,15 @@ contract Vendor is Ownable {
       energy.mint(to, amount);
   }
 
-  function redeem(uint id, uint amount) public {
-    reward = RewardNFT(rewardAddress);
+  function redeem(uint id, uint amount, address rewardContract) public {
+    reward = RewardNFT(rewardContract);
     uint cost = amount * reward.pricePerReward();
     require(energy.balanceOf(msg.sender) >= cost, "need more Energy to redeem");
-    energy.increaseAllowance(address(this), cost);
     energy.transferFrom(msg.sender,address(this),cost);
     reward.safeTransferFrom(reward.owner(), msg.sender, id, amount, "");
   }
 
   function verifyRedemption() public {
     
-  }
-
-  function setRewardAddress(address rewardContract) public onlyOwner {
-    rewardAddress = rewardContract;
   }
 }

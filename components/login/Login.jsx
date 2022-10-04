@@ -21,7 +21,7 @@ export default function Login(props) {
           />
 
           <spotLight position={[0, 50, -30]} color={"purple"} intensity={0.9} />
-          <ConnectWallet />
+          <ConnectWallet/>
         </Canvas>
       </div>
     </div>

@@ -1,14 +1,26 @@
 import "../styles/globals.scss";
 import { useState, useEffect } from "react";
-
 import Login from "../components/login/Login";
 import Layout from "../components/UI/Layout/Layout";
+import { ChainId, ThirdwebProvider } from "@thirdweb-dev/react";
+
+// This is the chainId your dApp will work on.
+const activeChainId = ChainId.Goerli;
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <ThirdwebProvider
+      desiredChainId={activeChainId}
+      authConfig={{
+        domain: "https://localhost:3000",
+        authUrl: "/api/auth",
+        loginRedirect: "/",
+      }}
+    >
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </ThirdwebProvider>
   );
 }
 

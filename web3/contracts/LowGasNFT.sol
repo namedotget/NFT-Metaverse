@@ -24,9 +24,9 @@ contract LowGasNFT is ERC721, Ownable {
   string public uriSuffix = ".json";
   string public hiddenMetadataUri;
   
-  uint256 public cost = 0.02 ether;
-  uint256 public maxSupply = 20;
-  uint256 public maxMintAmountPerTx = 2;
+  uint256 public cost = 0.01 ether;
+  uint256 public maxSupply = 100;
+  uint256 public maxMintAmountPerTx = 5;
   //reward points per mint
   uint256 private rewardRate = cost * 1000;
 

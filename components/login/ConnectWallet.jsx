@@ -3,6 +3,7 @@ import { useFrame, useThree, extend } from "@react-three/fiber";
 import { RoundedBox } from "@react-three/drei";
 import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader";
+import { useLogin } from "@thirdweb-dev/react";
 import modern from "../../public/data/fonts/Miso_Bold.json";
 extend({ TextGeometry });
 
@@ -10,7 +11,6 @@ export default function ConnectWallet(props) {
   const buttonRef = useRef();
   const textRef = useRef();
   const [hover, setHover] = useState(false);
-
   const { viewport, mouse } = useThree();
   const font = new FontLoader().parse(modern);
 
@@ -29,14 +29,7 @@ export default function ConnectWallet(props) {
     }
   });
   return (
-    <group
-      rotation={[Math.PI / 10, 0, 0]}
-      position={(0, 0, 0)}
-      ref={buttonRef}
-      onClick={() => {
-        initWeb3();
-      }}
-    >
+    <group rotation={[Math.PI / 10, 0, 0]} position={(0, 0, 0)} ref={buttonRef}>
       <pointLight color={"white"} intensity={3} />
       <RoundedBox
         args={
