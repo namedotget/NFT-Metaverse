@@ -1,28 +1,25 @@
-import Home from "../components/home/Home";
-import { Suspense, useEffect, useState } from "react";
-import LoadingScreen from "../components/UI/LoadingScreen";
-import { ConnectWallet } from "@thirdweb-dev/react";
 import { getUser } from "../auth.config";
-export default function HomePage(props) {
+
+export default function ProfilePage() {
   return (
     <div className="pgContain">
-      <Home />
+      <div className="main">
+        <h1>PROFILE</h1>
+      </div>
     </div>
   );
 }
 
 export async function getServerSideProps(context) {
   const user = await getUser(context.req);
-
   if (!user) {
     return {
       redirect: {
-        destination: "/login",
+        destination: "/",
         permanent: false,
       },
     };
   }
-
   return {
     props: {},
   };

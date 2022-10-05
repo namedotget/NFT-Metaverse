@@ -1,0 +1,67 @@
+@font-face {
+  font-family: custom;
+  src: url("../../../public/data/fonts/Miso-3mVp.otf");
+}
+.profileContain {
+  font-family: custom;
+  padding: 1rem;
+  position: absolute;
+  top: 10%;
+  right: 1%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.125);
+  backdrop-filter: blur(40px);
+  width: 26vw;
+  height: 80vh;
+  border-radius: 20px;
+  h3 {
+    margin: 0;
+  }
+  .closebtn {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+  }
+  .energy {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+  }
+  .rewards {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: orange;
+    border-radius: 10px;
+    .reward {
+      margin: 0;
+      padding: 0;
+      font-size: 2vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      width: 100%;
+    }
+  }
+}
+
+@keyframes swipe-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-50%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+
+@keyframes swipe-out {
+}
