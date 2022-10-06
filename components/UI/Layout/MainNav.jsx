@@ -48,7 +48,7 @@ export default function MainNav(props) {
             <img src={"/images/icons/home.png"} width={30} height={30} />
           </button>
         </Link>
-        <Link href={"/nfts"}>
+        <Link href={"/nft"}>
           <button>
             <img src={"/images/icons/picture.png"} width={30} height={30} />
           </button>
