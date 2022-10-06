@@ -10,6 +10,9 @@
   h2 {
     margin: 0;
   }
+  h3 {
+    margin: 0;
+  }
   .reward {
     padding: 1rem;
     display: flex;
@@ -26,12 +29,15 @@
     .info {
       display: flex;
       justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      height: 50%;
+      align-items: baseline;
+      flex-direction: row;
+      gap: 10%;
+      height: 40%;
       width: 100%;
       p {
         margin: 0;
+        line-height: 100%;
+        width: 50%;
       }
     }
     .attributes {
@@ -45,13 +51,18 @@
 }
 
 .paginate {
+  position: relative;
+  top: -8%;
   padding: 0;
   margin: 0;
   text-align: center;
-  width: 100%;
+  width: 80%;
   list-style: none;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 5%;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(50px);
+  border-radius: 20px;
 }

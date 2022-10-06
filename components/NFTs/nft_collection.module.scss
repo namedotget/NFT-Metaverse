@@ -1,6 +1,6 @@
 .collection {
   display: flex;
-  justify-content: center;
+  justify-content: baseline;
   align-items: center;
   flex-direction: column;
   width: 50%;
@@ -12,5 +12,15 @@
   }
   img {
     border-radius: 20px;
+  }
+  p {
+    text-align: center;
+    line-height: 100%;
+    font-weight: bolder;
+    font-size: 2vw;
+    position: absolute;
+    bottom: 20%;
+    margin: 0;
+    z-index: 1;
   }
 }

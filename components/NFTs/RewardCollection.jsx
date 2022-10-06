@@ -10,16 +10,10 @@ function Items({ currentItems }) {
       {currentItems &&
         currentItems.map((item, i) => (
           <div className={classes.reward} key={`reward${i}`}>
-            <Image src={item.image} width={"150"} height={"150%"} />
+            <Image src={item.image} width={"200"} height={"200"} />
             <div className={classes.info}>
-              <p>{item.name}</p>
+              <h3>{item.name}</h3>
               <p>{item.description}</p>
-              {item.attributes.map((attr, i) => (
-                <div className={classes.attributes} key={`attr${i}`}>
-                  <label>{attr.trait} :</label>
-                  <p>{attr.value}</p>
-                </div>
-              ))}
             </div>
           </div>
         ))}

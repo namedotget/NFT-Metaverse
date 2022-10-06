@@ -25,6 +25,12 @@ export async function rewardsOwned(sdk, address) {
   return data;
 }
 
+export async function NFTsOwned(sdk, address) {
+  const contract = sdk.getContractFromAbi(collectionAddress, collectionABI);
+  const owned = await contract.call("balanceOf", address);
+  return JSON.parse(owned);
+}
+
 export async function getEnergyBalance(sdk, address) {
   const contract = sdk.getContractFromAbi(energyContractAddress, energyABI);
   const balance18Digit = JSON.parse(await contract.call("balanceOf", address));
@@ -45,7 +51,7 @@ export async function getNFTSupply(sdk) {
 export const REWARDS = [
   {
     name: "PixelXP",
-    description: "pixel XP background",
+    description: "gain access to the pixel world",
     image:
       "https://gateway.pinata.cloud/ipfs/QmakEpKo5aRKK48ZZYcfnqebd3qnDF2synAX1MjVefKd1i/1.png",
     attributes: [{ trait: "pixelated", value: "XP" }],

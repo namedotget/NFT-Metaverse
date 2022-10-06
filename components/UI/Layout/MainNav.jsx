@@ -63,6 +63,7 @@ export default function MainNav(props) {
           auth={"/api/auth"}
           className={classes.connect}
           key={"connectwallet"}
+          style={profileModal ? { display: "none" } : ""}
         />
       </div>
       {profileModal && (

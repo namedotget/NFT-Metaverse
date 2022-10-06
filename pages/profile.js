@@ -1,10 +1,12 @@
 import { getUser } from "../auth.config";
+import Profile from "../components/profile/Profile";
 
-export default function ProfilePage() {
+export default function ProfilePage(props) {
+  const { user } = props;
   return (
     <div className="pgContain">
       <div className="main">
-        <h1>PROFILE</h1>
+        <Profile user={user} />
       </div>
     </div>
   );
@@ -21,6 +23,8 @@ export async function getServerSideProps(context) {
     };
   }
   return {
-    props: {},
+    props: {
+      user,
+    },
   };
 }
