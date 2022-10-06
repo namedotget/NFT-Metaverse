@@ -1,17 +1,16 @@
 .collection {
-  padding-bottom: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 45%;
+  width: 50%;
   height: 100%;
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 20px;
   h2 {
     margin: 0;
   }
-  img{
+  img {
     border-radius: 20px;
   }
 }

@@ -50,4 +50,10 @@ export const REWARDS = [
       "https://gateway.pinata.cloud/ipfs/QmakEpKo5aRKK48ZZYcfnqebd3qnDF2synAX1MjVefKd1i/1.png",
     attributes: [{ trait: "pixelated", value: "XP" }],
   },
+  {
+    name: "Key",
+    description: "unlock a part of the world",
+    image: "",
+    attributes: [{ trait: "key", value: "test" }],
+  },
 ];

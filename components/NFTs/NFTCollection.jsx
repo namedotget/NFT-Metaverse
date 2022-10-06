@@ -5,7 +5,9 @@ export default function NFTCollection(props) {
     <div className={classes.collection}>
       <h2>Collection</h2>
       <p>Supply : 3/100 have been found !</p>
-      <Image src={"/blobguys_prev.gif"} width={200} height={200} />
+      <div className={classes.img}>
+        <Image src={"/blobguys_prev.gif"} width={250} height={250} />
+      </div>
     </div>
   );
 }

@@ -41,11 +41,24 @@ export default function MainNav(props) {
   return (
     <div className={classes.header}>
       <h2>NFTverse</h2>
+
       <div className={classes.nav}>
-        <Link href={"/"}>Home</Link>
-        <Link href={"/nfts"}>NFTs</Link>
-        {user && <button onClick={toggleProfileModal}>profile</button>}
-        <ConnectWallet auth={"/api/auth"} />
+        <Link href={"/"}>
+          <button>
+            <img src={"/images/icons/home.png"} width={30} height={30} />
+          </button>
+        </Link>
+        <Link href={"/nfts"}>
+          <button>
+            <img src={"/images/icons/picture.png"} width={30} height={30} />
+          </button>
+        </Link>
+        {user && (
+          <button onClick={toggleProfileModal}>
+            <img src={"/images/icons/user.png"} width={30} height={30} />
+          </button>
+        )}
+        <ConnectWallet auth={"/api/auth"} className={classes.connect} />
       </div>
       {profileModal && (
         <ProfileModal close={toggleProfileModal} userData={userData} />
