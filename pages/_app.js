@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }) {
     <ThirdwebProvider
       desiredChainId={activeChainId}
       authConfig={{
-        domain: "https://localhost:3000",
+        domain: "https://nft-verse.netlify.app",
         authUrl: "/api/auth",
         loginRedirect: "/",
       }}
