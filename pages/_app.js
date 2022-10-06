@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }) {
   const [mobile, setMobile] = useState(false);
   useEffect(() => {
     if (window?.innerWidth < 980) setMobile(true);
-  });
+  }, []);
 
   if (mobile) {
     return (
@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }) {
     <ThirdwebProvider
       desiredChainId={activeChainId}
       authConfig={{
-        domain: "https://localhost:3000",
+        domain: "https://nft-verse.netlify.app",
         authUrl: "/api/auth",
         loginRedirect: "/",
       }}

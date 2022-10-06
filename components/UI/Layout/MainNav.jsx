@@ -3,11 +3,12 @@ import Link from "next/link";
 import {
   ConnectWallet,
   useAddress,
+  useMetamask,
   useLogin,
   useLogout,
   useSDK,
 } from "@thirdweb-dev/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ProfileModal from "./ProfileModal";
 import { getEnergyBalance, rewardsOwned } from "../../../web3/thirdweb";
 
@@ -58,7 +59,11 @@ export default function MainNav(props) {
             <img src={"/images/icons/user.png"} width={30} height={30} />
           </button>
         )}
-        <ConnectWallet auth={"/api/auth"} className={classes.connect} />
+        <ConnectWallet
+          auth={"/api/auth"}
+          className={classes.connect}
+          key={"connectwallet"}
+        />
       </div>
       {profileModal && (
         <ProfileModal close={toggleProfileModal} userData={userData} />

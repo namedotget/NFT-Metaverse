@@ -5,5 +5,5 @@ import { ThirdwebAuth } from "@thirdweb-dev/auth/next";
 
 export const { ThirdwebAuthHandler, getUser } = ThirdwebAuth({
   privateKey: process.env.ADMIN_PRIVATE_KEY,
-  domain: "https://localhost:3000",
+  domain: "https://nft-verse.netlify.app",
 });
