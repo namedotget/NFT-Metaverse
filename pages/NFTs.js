@@ -1,7 +1,7 @@
 import NFTCollection from "../components/NFTs/NFTCollection";
 import RewardCollection from "../components/NFTs/RewardCollection";
 
-export default function NFTsPage(props) {
+export default function NFTPage(props) {
   return (
     <div className="pgContain">
       <div className="main">
