@@ -55,7 +55,7 @@ Pages & Components:
 
 
 TODO :
+    - email jobs@InspiringApps.com 
+        subject: Web (JavaScript) Developer Apprentice
 
-    - Auth for Web3 w/ moralis
-    - Page Transition Animation
-    - Home Page Styling
+    - fix ConnectWallet

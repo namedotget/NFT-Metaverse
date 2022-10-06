@@ -9,6 +9,18 @@ import LoadingScreen from "../components/UI/LoadingScreen";
 const activeChainId = ChainId.Goerli;
 
 function MyApp({ Component, pageProps }) {
+  const [mobile, setMobile] = useState(false);
+  useEffect(() => {
+    if (window?.innerWidth < 980) setMobile(true);
+  });
+
+  if (mobile) {
+    return (
+      <div className="pgContain">
+        <h1>...mobile website coming soon...</h1>
+      </div>
+    );
+  }
   return (
     <ThirdwebProvider
       desiredChainId={activeChainId}

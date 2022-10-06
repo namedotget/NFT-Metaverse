@@ -1,7 +1,12 @@
 import Home from "../components/home/Home";
 import { Suspense, useEffect, useState } from "react";
 import LoadingScreen from "../components/UI/LoadingScreen";
-import { ConnectWallet } from "@thirdweb-dev/react";
+import {
+  ConnectWallet,
+  useAddress,
+  useConnect,
+  useLogout,
+} from "@thirdweb-dev/react";
 import { getUser } from "../auth.config";
 export default function HomePage(props) {
   return (
@@ -24,6 +29,8 @@ export async function getServerSideProps(context) {
   }
 
   return {
-    props: {},
+    props: {
+      user,
+    },
   };
 }

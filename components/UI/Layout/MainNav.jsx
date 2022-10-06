@@ -33,11 +33,10 @@ export default function MainNav(props) {
             energyBalance,
             rewardBalance,
           });
-          console.log(userData);
         })();
       }
     }
-  }, [profileModal, address, user?.address, logout]);
+  }, [profileModal, address, user?.address, logout, sdk]);
 
   return (
     <div className={classes.header}>
@@ -45,14 +44,8 @@ export default function MainNav(props) {
       <div className={classes.nav}>
         <Link href={"/"}>Home</Link>
         <Link href={"/nfts"}>NFTs</Link>
-        {user ? (
-          <>
-            <button onClick={toggleProfileModal}>profile</button>
-            <ConnectWallet />
-          </>
-        ) : (
-          <ConnectWallet />
-        )}
+        {user && <button onClick={toggleProfileModal}>profile</button>}
+        <ConnectWallet auth={"/api/auth"} />
       </div>
       {profileModal && (
         <ProfileModal close={toggleProfileModal} userData={userData} />
