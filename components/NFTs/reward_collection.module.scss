@@ -65,4 +65,27 @@
   background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(50px);
   border-radius: 20px;
+  .btn {
+    display: flex;
+    justify-content: baseline;
+    align-items: center;
+    margin: 0.5vw;
+    background-color: rgba(255, 255, 255, 0.892);
+    border-radius: 20px;
+    transition: 0.8s;
+    a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 4vw;
+      height: 4vw;
+      transition: 0.5s;
+      &:hover {
+        scale: 1.5;
+      }
+    }
+    &:hover {
+      background-color: rgba(240, 118, 118, 0.867);
+    }
+  }
 }

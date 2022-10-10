@@ -4,7 +4,7 @@ import { TextureLoader } from "three/src/loaders/TextureLoader";
 import * as THREE from "three";
 import { Suspense, useRef } from "react";
 import CanvasLoader from "./CanvasLoader";
-export default function OrbNav() {
+export function OrbNav() {
   const { viewport } = useThree();
   const orbRef = useRef();
   const [diffMap, normMap, roughMap] = useLoader(TextureLoader, [

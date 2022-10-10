@@ -14,7 +14,7 @@ export default function Home() {
         <pointLight position={[0, -10, 0]} color={"white"} intensity={3} />
         <pointLight position={[0, 2, 1]} color={"yellow"} intensity={0.8} />
         <ambientLight color={"white"} intensity={0.7} />
-        <Crystal scale={0.5} position={[0, -1.25, 0]} />
+        <Crystal scale={0.5} position={[0, -1.25, 0]} animated />
       </Canvas>
     </div>
   );

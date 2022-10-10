@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { UserWallet } from "@thirdweb-dev/sdk";
 
 export default function Layout(props) {
+  if (props.children.type.name === "WorldPage") return <>{props.children}</>;
   const { user } = useUser();
   if (!user) {
     return (

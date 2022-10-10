@@ -1,7 +1,6 @@
 import { useFrame, useThree } from "@react-three/fiber";
-export default function CanvasLoader() {
+export function CanvasLoader() {
   const { viewport } = useThree();
-
   return (
     <group>
       <mesh position={[0, 0.5, 0]}>

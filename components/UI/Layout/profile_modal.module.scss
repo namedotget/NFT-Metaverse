@@ -26,9 +26,10 @@
     margin: 0;
   }
   .closebtn {
-    position: absolute;
-    top: 5%;
-    left: 5%;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 100%;
+    width: 3vw;
+    height: 3vw;
   }
   .main {
     display: flex;
@@ -36,6 +37,13 @@
     align-items: center;
     flex-direction: column;
     gap: 1rem;
+    .controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1vw;
+      width: 100%;
+    }
   }
 
   .energy {
@@ -48,8 +56,15 @@
     align-items: center;
     width: 100%;
     gap: 5%;
+    div {
+      position: relative;
+      top: -5%;
+      width: 5vw;
+      height: 5vw;
+    }
   }
   .rewards {
+    padding: 1.5vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -68,6 +83,9 @@
       width: 100%;
       > * {
         margin: 0;
+      }
+      img {
+        border-radius: 10px;
       }
     }
   }

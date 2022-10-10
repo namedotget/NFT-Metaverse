@@ -3,33 +3,40 @@ import Link from "next/link";
 import Image from "next/image";
 import { ConnectWallet } from "@thirdweb-dev/react";
 import { REWARDS } from "../../../web3/thirdweb";
+import EnergyCoin from "../EnergyCoin";
 export default function ProfileModal(props) {
   const { userData } = props;
   return (
     <div className={classes.profileContain}>
       <div className={classes.main}>
-        <ConnectWallet className={classes.wallet} auth={"/api/auth"} />
-        <button className={classes.closebtn} onClick={props.close}>
-          ^
-        </button>
-        <Link href={"/profile"}>
-          <button onClick={props.close}>see full profile</button>
-        </Link>
+        <div className={classes.controls}>
+          <button className={classes.closebtn} onClick={props.close}>
+            <Image src={"/images/icons/cross.png"} width={10} height={10} />
+          </button>
+          <ConnectWallet className={classes.wallet} auth={"/api/auth"} />
+        </div>
       </div>
       <div className={classes.energy}>
         <label>ENRG balance :</label>
         <p>{userData.energyBalance || 0}</p>
+        <div>
+          <EnergyCoin scale={0.9} position={[0, -3, 0]} />
+        </div>
       </div>
       <hr></hr>
       <div className={classes.rewards}>
         {REWARDS.map((reward, i) => (
           <div className={classes.reward} key={`reward${i}`}>
             <p>{reward.name}</p>
-            <Image src={reward.image} width={50} height={50} />
+            <Image src={reward.image} width={75} height={75} />
             <p>{userData.rewardBalance}</p>
           </div>
         ))}
       </div>
+      <hr></hr>
+      <Link href={"/profile"}>
+        <button onClick={props.close}>see full profile</button>
+      </Link>
     </div>
   );
 }

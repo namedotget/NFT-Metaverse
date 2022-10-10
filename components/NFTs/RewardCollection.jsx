@@ -51,11 +51,17 @@ function PaginatedItems({ itemsPerPage }) {
       <Items currentItems={currentItems} />
       <ReactPaginate
         breakLabel="..."
-        nextLabel="next >"
+        nextLabel={
+          <Image src={"/images/icons/angle-right.png"} width={10} height={10} />
+        }
+        nextClassName={classes.btn}
         onPageChange={handlePageClick}
         pageRangeDisplayed={5}
         pageCount={pageCount}
-        previousLabel="< prev"
+        previousClassName={classes.btn}
+        previousLabel={
+          <Image src={"/images/icons/angle-left.png"} width={10} height={10} />
+        }
         renderOnZeroPageCount={null}
         className={classes.paginate}
       />

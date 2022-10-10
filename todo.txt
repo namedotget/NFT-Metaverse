@@ -55,7 +55,6 @@ Pages & Components:
 
 
 TODO :
-    - email jobs@InspiringApps.com 
-        subject: Web (JavaScript) Developer Apprentice
-
-    - fix ConnectWallet
+    - Work on physics for Player
+    - Add UI component for World
+    - Add thirdweb helper functions for smart contracts

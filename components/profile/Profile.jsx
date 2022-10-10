@@ -40,7 +40,7 @@ export default function Profile(props) {
             <p>
               {userData?.energy || 0}
               <span>
-                <EnergyCoin />
+                <EnergyCoin scale={0.5} position={[0, 0.5, 0]} animated />
               </span>
             </p>
           </div>
