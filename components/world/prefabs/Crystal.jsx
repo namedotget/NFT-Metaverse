@@ -6,8 +6,8 @@ export function Crystal(props) {
   const { nodes, materials } = useGLTF("/crystal.glb");
 
   const [group] = useBox(() => ({
-    mass: 1,
-    args: [1, 3, 1],
+    mass: 500,
+    args: [3, 3, 3],
     material: {
       friction: 1,
       restitution: 0,

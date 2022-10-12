@@ -3,19 +3,19 @@ import { useGLTF } from "@react-three/drei";
 import { Detailed } from "@react-three/drei";
 import { useBox } from "@react-three/cannon";
 export function Tree(props) {
-  const [cubeRef] = useBox((props) => ({
-    mass: 1,
+  console.log(props);
+  const [cubeRef] = useBox(() => ({
+    mass: 500,
     args: [1, 4, 1],
     material: {
-      friction: 1,
-      restitution: 0,
+      friction: 5,
     },
-    type: "static",
-    ...props,
+    position: [props.position[0], 2, props.position[2]],
   }));
   const { nodes, materials } = useGLTF("/hill_top_tree.glb");
   return (
-    <group {...props} dispose={null} scale={0.01}>
+    <group dispose={null} scale={0.01}>
+      <mesh ref={cubeRef} />
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <group rotation={[Math.PI / 2, 0, 0]}>
           <group

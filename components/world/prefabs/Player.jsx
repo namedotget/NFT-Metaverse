@@ -5,8 +5,7 @@ import { useEffect } from "react";
 import { OrbitControls } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
-import { useBox } from "@react-three/cannon";
-
+import { useBox, useSphere } from "@react-three/cannon";
 let walkDirection = new THREE.Vector3();
 let rotateAngle = new THREE.Vector3(0, 1, 0);
 let rotateQuarternion = new THREE.Quaternion();
@@ -44,28 +43,32 @@ export function Player(props) {
   const { actions } = useAnimations(animations, group);
   const { forward, backward, left, right, jump, shift } = useInput();
   const currentAction = useRef("");
+  const playerPosition = useRef([0, 0, 0]);
+  const velocity = useRef([0, 0, 0]);
   const controlsRef = useRef(<OrbitControls />);
-  const { camera } = useThree();
+  const { camera, scene } = useThree();
 
-  const [cubeRef, api] = useBox(() => ({
+  const [sphereRef, api] = useSphere(() => ({
     mass: 100,
-    args: [1, 4, 1],
+    // fixedRotation: true,
+    args: [0.5],
     material: {
-      friction: 1,
-      restitution: 0,
+      friction: 0,
     },
-    ...props,
-    type: "static",
   }));
 
   function updateCameraTarget(moveX, moveZ) {
     //move camera
-    camera.position.x += moveX;
-    camera.position.z += moveZ;
-
+    if (
+      Math.abs(velocity.current[0]) > 0.5 ||
+      Math.abs(velocity.current[2] > 0.5)
+    ) {
+      camera.position.x += moveX / 3;
+      camera.position.z += moveZ / 3;
+    }
     //update camera target
     cameraTarget.x = group.current.position.x;
-    cameraTarget.y = group.current.position.y + 1.9;
+    cameraTarget.y = group.current.position.y + 1.8;
     cameraTarget.z = group.current.position.z;
     if (controlsRef.current) controlsRef.current.target = cameraTarget;
   }
@@ -88,7 +91,9 @@ export function Player(props) {
       nextActionToPlay?.reset().fadeIn(0.2).play();
       currentAction.current = action;
     }
-  }, [forward, backward, left, right, jump, shift]);
+    api.velocity.subscribe((v) => (velocity.current = v));
+    api.position.subscribe((v) => (playerPosition.current = v));
+  }, [forward, backward, left, right, jump, shift, api]);
 
   useFrame((state, delta) => {
     if (
@@ -97,8 +102,8 @@ export function Player(props) {
     ) {
       // calculate towards camera direction
       let angleYCameraDirection = Math.atan2(
-        camera.position.x - group.current.position.x,
-        camera.position.z - group.current.position.z
+        camera.position.x - playerPosition.current[0],
+        camera.position.z - playerPosition.current[2]
       );
 
       let newDirectionOffset = directionOffset({
@@ -122,20 +127,34 @@ export function Player(props) {
 
       // run/walk velocity
       const velocity = currentAction.current == "running" ? 10 : 5;
-
       const moveX = walkDirection.x * velocity * delta;
       const moveZ = walkDirection.z * velocity * delta;
-      group.current.position.x += moveX;
-      group.current.position.z += moveZ;
+      api.velocity.set(moveX * 20, 0, moveZ * 20);
+
       updateCameraTarget(moveX, moveZ);
+    } else {
+      api.velocity.set(0, 0, 0);
     }
+    group.current.position.set(
+      playerPosition.current[0],
+      playerPosition.current[1] - 0.5,
+      playerPosition.current[2]
+    );
   });
   return (
     <>
-      <OrbitControls ref={controlsRef} />
+      <OrbitControls
+        ref={controlsRef}
+        enablePan={false}
+        minPolarAngle={Math.PI / 4}
+        maxPolarAngle={Math.PI / 1.75}
+        minDistance={1.5}
+        maxDistance={4}
+      />
       <group {...props} dispose={null} ref={group}>
-        <group name="Scene" rotation={[0, Math.PI, 0]}>
-          <group name="Armature">
+        <group name="Scene">
+          <mesh ref={sphereRef} />
+          <group name="Armature" rotation={[0, Math.PI, 0]}>
             <primitive object={nodes.mixamorigHips} />
             <primitive object={nodes.Ctrl_ArmPole_IK_Left} />
             <primitive object={nodes.Ctrl_Hand_IK_Left} />
@@ -145,7 +164,7 @@ export function Player(props) {
             <primitive object={nodes.Ctrl_LegPole_IK_Left} />
             <primitive object={nodes.Ctrl_Foot_IK_Right} />
             <primitive object={nodes.Ctrl_LegPole_IK_Right} />
-            <primitive object={nodes.Ctrl_Master} ref={cubeRef} />
+            <primitive object={nodes.Ctrl_Master} />
             <skinnedMesh
               name="vanguard_Mesh"
               geometry={nodes.vanguard_Mesh.geometry}
