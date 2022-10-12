@@ -43,20 +43,21 @@ export function Player(props) {
   const { nodes, materials, animations } = useGLTF("/testPlayer.glb");
   const { actions } = useAnimations(animations, group);
   const { forward, backward, left, right, jump, shift } = useInput();
-  console.log(actions);
   const currentAction = useRef("");
   const controlsRef = useRef(<OrbitControls />);
   const { camera } = useThree();
 
   const [cubeRef, api] = useBox(() => ({
-    mass: 1,
+    mass: 100,
     args: [1, 4, 1],
     material: {
       friction: 1,
       restitution: 0,
     },
     ...props,
+    type: "static",
   }));
+
   function updateCameraTarget(moveX, moveZ) {
     //move camera
     camera.position.x += moveX;
@@ -144,13 +145,12 @@ export function Player(props) {
             <primitive object={nodes.Ctrl_LegPole_IK_Left} />
             <primitive object={nodes.Ctrl_Foot_IK_Right} />
             <primitive object={nodes.Ctrl_LegPole_IK_Right} />
-            <primitive object={nodes.Ctrl_Master} />
+            <primitive object={nodes.Ctrl_Master} ref={cubeRef} />
             <skinnedMesh
               name="vanguard_Mesh"
               geometry={nodes.vanguard_Mesh.geometry}
               material={materials.VanguardBodyMat}
               skeleton={nodes.vanguard_Mesh.skeleton}
-              ref={cubeRef}
             />
           </group>
         </group>

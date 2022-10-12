@@ -1,20 +1,27 @@
 import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { useHelper } from "@react-three/drei";
-import { BoxHelper } from "three";
+import { useBox } from "@react-three/cannon";
 export function Crystal(props) {
   const { nodes, materials } = useGLTF("/crystal.glb");
-  const group = useRef();
+
+  const [group] = useBox(() => ({
+    mass: 1,
+    args: [1, 3, 1],
+    material: {
+      friction: 1,
+      restitution: 0,
+    },
+    ...props,
+  }));
+
   useFrame(({ clock }) => {
     if (props.animated) {
-      group.current.rotation.y += 0.0025;
+      // group.current.rotation.y += 0.0025;
     }
   });
-
-  props.isTesting && useHelper(group, BoxHelper, "blue");
   return (
-    <group {...props} dispose={null} ref={group} onclick castShadow>
+    <group {...props} dispose={null} castShadow ref={group}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <group rotation={[Math.PI / 2, 0, 0]}>
           <mesh

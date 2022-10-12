@@ -3,12 +3,13 @@ import { useThree } from "@react-three/fiber";
 import { useEffect, useState } from "react";
 import { Tree } from "./Tree";
 import { Raycaster } from "three/src/core/Raycaster";
+import { useBox } from "@react-three/cannon";
 
 export function Trees(props) {
   const { count, boundary } = props;
   const [trees, setTrees] = useState([]);
   const { camera, scene } = useThree();
-  console.log(scene);
+
   function boxIntersects(
     minAx,
     minAz,
@@ -89,7 +90,7 @@ export function Trees(props) {
       {trees.map((tree, i) => (
         <Detailed
           key={i}
-          distances={[0, 30, 60]}
+          distances={[0, 50, 60]}
           position={[tree.position.x, 0, tree.position.z]}
           parent={scene}
           {...props}

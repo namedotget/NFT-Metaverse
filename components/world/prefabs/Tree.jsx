@@ -15,7 +15,7 @@ export function Tree(props) {
   }));
   const { nodes, materials } = useGLTF("/hill_top_tree.glb");
   return (
-    <group {...props} dispose={null} scale={0.01} ref={cubeRef}>
+    <group {...props} dispose={null} scale={0.01}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <group rotation={[Math.PI / 2, 0, 0]}>
           <group
