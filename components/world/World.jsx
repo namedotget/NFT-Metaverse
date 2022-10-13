@@ -14,14 +14,14 @@ import { Skybox } from "./prefabs/Skybox";
 
 import { Player } from "./prefabs/Player";
 import { Physics, Debug } from "@react-three/cannon";
-import { useRef } from "react";
+import { Suspense, useRef } from "react";
 import { Player2 } from "./prefabs/Player2";
 import { Tree4 } from "./prefabs/trees/Tree4";
 
 export default function World(props) {
   const testing = true;
   return (
-    <Canvas shadows flat>
+    <Canvas shadows flat camera={{ position: [0, 5, 10] }}>
       {testing && (
         <>
           <axesHelper args={[2]} />
@@ -37,20 +37,17 @@ export default function World(props) {
         iterations={50}
         broadphase={"SAP"}
       >
-        <Debug color={"black"} scale={1.1}>
-          <GroundPlane />
-          <Crystal
-            position={[3, 3, 2]}
-            scale={0.5}
-            animated
-            isTesting={testing}
-          />
-
+        <GroundPlane />
+        <Crystal
+          position={[3, 3, 2]}
+          scale={0.5}
+          animated
+          isTesting={testing}
+        />
+        <Suspense fallback={null}>
           <Trees count={20} boundary={50} />
-          <Tree4 />
-
           <Player />
-        </Debug>
+        </Suspense>
       </Physics>
       <fogExp2 attach="fog" args={[0xffffff, 0.055]} />
     </Canvas>
