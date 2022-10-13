@@ -96,7 +96,7 @@ export function Player(props) {
     });
     api.position.subscribe((v) => (playerPosition.current = v));
     api.position.subscribe((v) => {
-      group.current.position.set(v[0], v[1] - 0.75, v[2]);
+      group?.current?.position.set(v[0], v[1] - 0.75, v[2]);
     });
   }, [forward, backward, left, right, jump, shift, api, group]);
 
@@ -131,7 +131,7 @@ export function Player(props) {
       walkDirection.applyAxisAngle(rotateAngle, newDirectionOffset);
 
       // run/walk velocity
-      const velocity = currentAction.current == "running" ? 10 : 5;
+      const velocity = currentAction.current == "running" ? 8 : 5;
       const moveX = walkDirection.x * velocity * delta;
       const moveZ = walkDirection.z * velocity * delta;
       api.velocity.set(moveX * 20, 0, moveZ * 20);

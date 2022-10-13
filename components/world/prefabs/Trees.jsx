@@ -93,7 +93,7 @@ export function Trees(props) {
     for (let i = 0; i < count; i++) {
       tempTrees.push({
         position: { x: 0, y: 0 },
-        box: 4,
+        box: 2,
       });
       updatePosition(tempTrees, boundary);
     }
@@ -104,7 +104,7 @@ export function Trees(props) {
       {trees.map((tree, i) => (
         <Detailed
           key={i}
-          distances={[0, 50, 60]}
+          distances={[0, 35]}
           position={[tree.position.x, 0, tree.position.z]}
           parent={scene}
         >
@@ -115,10 +115,6 @@ export function Trees(props) {
               tree.position.z + parentPosition[2],
             ]}
           />
-          <mesh>
-            <boxGeometry args={[1, 8, 1]} />
-            <meshLambertMaterial color={"green"} />
-          </mesh>
           <mesh />
         </Detailed>
       ))}

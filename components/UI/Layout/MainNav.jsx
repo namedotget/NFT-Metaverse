@@ -14,6 +14,7 @@ import { getEnergyBalance, rewardsOwned } from "../../../web3/thirdweb";
 
 export default function MainNav(props) {
   const [userData, setUserData] = useState({});
+  const [hidden, setHidden] = useState(props.world);
   const { user } = props;
   const address = useAddress();
   const logout = useLogout();
@@ -34,41 +35,52 @@ export default function MainNav(props) {
             energyBalance,
             rewardBalance,
           });
+          localStorage.setItem("user", JSON.stringify(userData));
         })();
       }
     }
   }, [profileModal, address, user?.address, logout, sdk]);
 
   return (
-    <div className={classes.header}>
-      <h2>NFTverse</h2>
-
-      <div className={classes.nav}>
-        <Link href={"/"}>
-          <button>
-            <img src={"/images/icons/home.png"} width={30} height={30} />
+    <>
+      {hidden ? (
+        <button className={classes.worldBtn} onClick={() => setHidden(false)}>
+          menu
+        </button>
+      ) : (
+        <div className={classes.header}>
+          <button className={classes.worldBtn} onClick={() => setHidden(true)}>
+            hide
           </button>
-        </Link>
-        <Link href={"/nft"}>
-          <button>
-            <img src={"/images/icons/picture.png"} width={30} height={30} />
-          </button>
-        </Link>
-        {user && (
-          <button onClick={toggleProfileModal}>
-            <img src={"/images/icons/user.png"} width={30} height={30} />
-          </button>
-        )}
-        <ConnectWallet
-          auth={"/api/auth"}
-          className={classes.connect}
-          key={"connectwallet"}
-          style={profileModal ? { display: "none" } : ""}
-        />
-      </div>
-      {profileModal && (
-        <ProfileModal close={toggleProfileModal} userData={userData} />
+          <h2>NFTverse</h2>
+          <div className={classes.nav}>
+            <Link href={"/"}>
+              <button>
+                <img src={"/images/icons/home.png"} width={30} height={30} />
+              </button>
+            </Link>
+            <Link href={"/nft"}>
+              <button>
+                <img src={"/images/icons/picture.png"} width={30} height={30} />
+              </button>
+            </Link>
+            {user && (
+              <button onClick={toggleProfileModal}>
+                <img src={"/images/icons/user.png"} width={30} height={30} />
+              </button>
+            )}
+            <ConnectWallet
+              auth={"/api/auth"}
+              className={classes.connect}
+              key={"connectwallet"}
+              style={profileModal ? { display: "none" } : ""}
+            />
+          </div>
+          {profileModal && (
+            <ProfileModal close={toggleProfileModal} userData={userData} />
+          )}
+        </div>
       )}
-    </div>
+    </>
   );
 }
