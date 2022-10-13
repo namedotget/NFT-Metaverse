@@ -16,6 +16,7 @@ import { Player } from "./prefabs/Player";
 import { Physics, Debug } from "@react-three/cannon";
 import { useRef } from "react";
 import { Player2 } from "./prefabs/Player2";
+import { Tree4 } from "./prefabs/trees/Tree4";
 
 export default function World(props) {
   const testing = true;
@@ -45,7 +46,8 @@ export default function World(props) {
             isTesting={testing}
           />
 
-          <Trees count={50} boundary={50} />
+          <Trees count={20} boundary={50} />
+          <Tree4 />
 
           <Player />
         </Debug>

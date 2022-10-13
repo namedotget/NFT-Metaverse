@@ -3,7 +3,6 @@ import { useGLTF } from "@react-three/drei";
 import { Detailed } from "@react-three/drei";
 import { useBox } from "@react-three/cannon";
 export function Tree(props) {
-  console.log(props);
   const [cubeRef] = useBox(() => ({
     mass: 500,
     args: [1, 4, 1],

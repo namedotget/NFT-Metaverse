@@ -2,8 +2,10 @@ import { Detailed } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import { useEffect, useState } from "react";
 import { Tree } from "./Tree";
+import { Tree1 } from "./trees/Tree1";
 import { Raycaster } from "three/src/core/Raycaster";
 import { useBox } from "@react-three/cannon";
+import { Tree2 } from "./trees/Tree2";
 
 export function Trees(props) {
   const { count, boundary } = props;
@@ -79,7 +81,7 @@ export function Trees(props) {
     for (let i = 0; i < count; i++) {
       tempTrees.push({
         position: { x: 0, y: 0 },
-        box: 0.5,
+        box: 2,
       });
       updatePosition(tempTrees, boundary);
     }
@@ -95,7 +97,7 @@ export function Trees(props) {
           parent={scene}
           {...props}
         >
-          <Tree position={[tree.position.x, 0, tree.position.z]} />
+          <Tree1 position={[tree.position.x, 0, tree.position.z]} />
           <mesh>
             <boxGeometry args={[1, 8, 1]} />
             <meshLambertMaterial color={"green"} />

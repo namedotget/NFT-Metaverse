@@ -55,17 +55,18 @@ export function Player(props) {
     material: {
       friction: 0,
     },
+    position: [0, 2, 0],
   }));
 
   function updateCameraTarget(moveX, moveZ) {
     //move camera
-    if (
-      Math.abs(velocity.current[0]) > 0.5 ||
-      Math.abs(velocity.current[2] > 0.5)
-    ) {
-      camera.position.x += moveX / 3;
-      camera.position.z += moveZ / 3;
-    }
+    // if (
+    //   Math.abs(velocity.current[0]) > 0.9 ||
+    //   Math.abs(velocity.current[2] > 0.9)
+    // ) {
+    //   camera.position.x += moveX / 2.95;
+    //   camera.position.z += moveZ / 2.95;
+    // }
     //update camera target
     cameraTarget.x = group.current.position.x;
     cameraTarget.y = group.current.position.y + 1.8;
@@ -130,7 +131,6 @@ export function Player(props) {
       const moveX = walkDirection.x * velocity * delta;
       const moveZ = walkDirection.z * velocity * delta;
       api.velocity.set(moveX * 20, 0, moveZ * 20);
-
       updateCameraTarget(moveX, moveZ);
     } else {
       api.velocity.set(0, 0, 0);
@@ -148,8 +148,8 @@ export function Player(props) {
         enablePan={false}
         minPolarAngle={Math.PI / 4}
         maxPolarAngle={Math.PI / 1.75}
-        minDistance={1.5}
-        maxDistance={4}
+        minDistance={2.5}
+        maxDistance={2.5}
       />
       <group {...props} dispose={null} ref={group}>
         <group name="Scene">
