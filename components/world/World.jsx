@@ -16,6 +16,7 @@ import { Player } from "./prefabs/Player";
 import { Physics, Debug } from "@react-three/cannon";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { Tree4 } from "./prefabs/trees/Tree4";
+import { WorldCrystal } from "./prefabs/WorldCrystal";
 
 export default function World(props) {
   const [userData, setUserData] = useState(null);
@@ -42,7 +43,7 @@ export default function World(props) {
       >
         <Debug>
           <GroundPlane />
-          <Crystal
+          <WorldCrystal
             position={[3, 1, 2]}
             scale={0.5}
             animated
