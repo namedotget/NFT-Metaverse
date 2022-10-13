@@ -46,8 +46,8 @@ export default function World(props) {
         />
         <Suspense fallback={null}>
           <Trees count={20} boundary={50} />
-          <Player />
         </Suspense>
+        <Player />
       </Physics>
       <fogExp2 attach="fog" args={[0xffffff, 0.055]} />
     </Canvas>
