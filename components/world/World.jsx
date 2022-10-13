@@ -24,7 +24,6 @@ export default function World(props) {
     <Canvas shadows flat camera={{ position: [0, 5, 10] }}>
       {testing && (
         <>
-          <axesHelper args={[2]} />
           <Stats />
           {/* <gridHelper args={[1000, 1000]} /> */}
         </>
@@ -33,23 +32,27 @@ export default function World(props) {
       <Skybox />
       <Physics
         gravity={[0, -50, 0]}
-        tolerance={0}
+        tolerance={1}
         iterations={50}
         broadphase={"SAP"}
       >
+        {/* <Debug> */}
         <GroundPlane />
-        <Crystal
+        {/* <Crystal
           position={[3, 3, 2]}
           scale={0.5}
           animated
           isTesting={testing}
-        />
+        /> */}
         <Suspense fallback={null}>
-          <Trees count={20} boundary={50} />
+          <Trees count={50} boundary={50} type={"3"} />
+          <Trees position={[50, 0, 1]} count={50} boundary={50} type={"2"} />
+          <Trees position={[50, 0, 50]} count={100} boundary={100} type={"1"} />
         </Suspense>
         <Player />
+        {/* </Debug> */}
       </Physics>
-      <fogExp2 attach="fog" args={[0xffffff, 0.055]} />
+      <fogExp2 attach="fog" args={[0xffffff, 0.09]} />
     </Canvas>
   );
 }

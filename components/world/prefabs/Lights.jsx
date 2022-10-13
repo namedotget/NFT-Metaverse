@@ -5,7 +5,7 @@ import { DirectionalLightHelper } from "three";
 export function Lights() {
   const lightRef1 = useRef();
   const { camera } = useThree();
-  useHelper(lightRef1, DirectionalLightHelper, 5, "red");
+  // useHelper(lightRef1, DirectionalLightHelper, 5, "red");
 
   useFrame(() => {
     lightRef1.current.position.set(
@@ -23,12 +23,12 @@ export function Lights() {
         intensity={0.7}
         ref={lightRef1}
         castShadow
-        shadow-mapSize-height={1000}
-        shadow-mapSize-width={1000}
-        shadow-camera-left={-30}
-        shadow-camera-right={30}
-        shadow-camera-top={30}
-        shadow-camera-bottom={-30}
+        shadow-mapSize-height={2000}
+        shadow-mapSize-width={2000}
+        shadow-camera-left={-25}
+        shadow-camera-right={25}
+        shadow-camera-top={25}
+        shadow-camera-bottom={-25}
       />
       <hemisphereLight args={["purple", "green", 0.7]} />
     </>

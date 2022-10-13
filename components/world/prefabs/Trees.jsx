@@ -6,12 +6,24 @@ import { Tree1 } from "./trees/Tree1";
 import { Raycaster } from "three/src/core/Raycaster";
 import { useBox } from "@react-three/cannon";
 import { Tree2 } from "./trees/Tree2";
+import { Tree3 } from "./trees/Tree3";
 
 export function Trees(props) {
-  const { count, boundary } = props;
+  const { count, boundary, type } = props;
+  const parentPosition = props.position || [0, 0, 0];
   const [trees, setTrees] = useState([]);
   const { camera, scene } = useThree();
 
+  function TreeType(TreeProps) {
+    const rotationY = (Math.random() * Math.PI) / 5;
+    let { pos } = TreeProps;
+    const types = {
+      1: <Tree1 position={pos} rotY={rotationY} />,
+      2: <Tree2 position={pos} rotY={rotationY} />,
+      3: <Tree3 position={pos} rotY={rotationY} />,
+    };
+    return types[type];
+  }
   function boxIntersects(
     minAx,
     minAz,
@@ -45,7 +57,7 @@ export function Trees(props) {
           minTargetX,
           minTargetZ,
           maxTargetX,
-          maxTargetX,
+          maxTargetZ,
           minChildX,
           minChildZ,
           maxChildX,
@@ -81,23 +93,28 @@ export function Trees(props) {
     for (let i = 0; i < count; i++) {
       tempTrees.push({
         position: { x: 0, y: 0 },
-        box: 2,
+        box: 4,
       });
       updatePosition(tempTrees, boundary);
     }
   }, [boundary, count]);
 
   return (
-    <group>
+    <group position={props.position}>
       {trees.map((tree, i) => (
         <Detailed
           key={i}
           distances={[0, 50, 60]}
           position={[tree.position.x, 0, tree.position.z]}
           parent={scene}
-          {...props}
         >
-          <Tree1 position={[tree.position.x, 0, tree.position.z]} />
+          <TreeType
+            pos={[
+              tree.position.x + parentPosition[0],
+              0,
+              tree.position.z + parentPosition[2],
+            ]}
+          />
           <mesh>
             <boxGeometry args={[1, 8, 1]} />
             <meshLambertMaterial color={"green"} />

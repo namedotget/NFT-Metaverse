@@ -1,12 +1,43 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useGLTF } from "@react-three/drei";
+import { useBox } from "@react-three/cannon";
+import { useFrame } from "@react-three/fiber";
+export function Tree3(props) {
+  const meshRef = useRef();
+  const { rotY } = props;
+  const { nodes, materials } = useGLTF("/trees/tree_3.glb");
+  const [wobble, setWobble] = useState(false);
 
-export function Model(props) {
-  const { nodes, materials } = useGLTF("/tree_3.glb");
+  function wobbleLeaves() {
+    setWobble(true);
+    clearTimeout();
+    setTimeout(() => {
+      setWobble(false);
+    }, 1500);
+  }
+  const [cubeRef] = useBox(() => ({
+    mass: 1000,
+    args: [1.1, 2, 3.25],
+    material: {
+      friction: 5,
+    },
+    position: [props.position[0] + 0.5, 1, props.position[2] + 0.3],
+    rotation: [0, rotY, 0],
+    type: "Kinematic",
+  }));
+
+  useFrame(({ clock }) => {
+    if (wobble) {
+      meshRef.current.position.z = Math.sin(clock.getElapsedTime() * 10) * 0.05;
+    }
+  });
   return (
-    <group {...props} dispose={null}>
+    <group dispose={null} rotation={[0, rotY, 0]}>
+      <mesh ref={cubeRef} />
       <group rotation={[Math.PI / 2, 0, 0]}>
         <mesh
+          ref={meshRef}
+          onClick={wobbleLeaves}
           castShadow
           receiveShadow
           geometry={nodes.p0025_1.geometry}
@@ -23,4 +54,4 @@ export function Model(props) {
   );
 }
 
-useGLTF.preload("/tree_3.glb");
+useGLTF.preload("/trees/tree_3.glb");

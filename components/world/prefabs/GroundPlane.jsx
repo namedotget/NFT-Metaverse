@@ -28,7 +28,7 @@ export function GroundPlane() {
   }));
   return (
     <mesh ref={floorRef} receiveShadow>
-      <planeGeometry args={[500, 500]} />
+      <planeGeometry args={[1000, 1000]} />
       <meshLambertMaterial color={"green"} />
     </mesh>
   );

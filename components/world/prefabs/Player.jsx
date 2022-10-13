@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { OrbitControls } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
-import { useBox, useSphere } from "@react-three/cannon";
+import { useBox, useSphere, useCylinder } from "@react-three/cannon";
 let walkDirection = new THREE.Vector3();
 let rotateAngle = new THREE.Vector3(0, 1, 0);
 let rotateQuarternion = new THREE.Quaternion();
@@ -48,24 +48,23 @@ export function Player(props) {
   const controlsRef = useRef(<OrbitControls />);
   const { camera, scene } = useThree();
 
-  const [sphereRef, api] = useSphere(() => ({
+  const [sphereRef, api] = useCylinder(() => ({
     mass: 100,
-    // fixedRotation: true,
-    args: [0.5],
+    fixedRotation: true,
+    args: [0.25, 0.32, 1.55, 7],
     material: {
       friction: 0,
     },
-    position: [0, 2, 0],
+    position: [0, 0, 0],
   }));
 
   function updateCameraTarget(moveX, moveZ) {
-    //move camera
     // if (
     //   Math.abs(velocity.current[0]) > 0.9 ||
     //   Math.abs(velocity.current[2] > 0.9)
     // ) {
-    //   camera.position.x += moveX / 2.95;
-    //   camera.position.z += moveZ / 2.95;
+    //   camera.position.x += moveX;
+    //   camera.position.z += moveZ;
     // }
     //update camera target
     cameraTarget.x = group.current.position.x;
@@ -92,9 +91,14 @@ export function Player(props) {
       nextActionToPlay?.reset().fadeIn(0.2).play();
       currentAction.current = action;
     }
-    api.velocity.subscribe((v) => (velocity.current = v));
+    api.velocity.subscribe((v) => {
+      velocity.current = v;
+    });
     api.position.subscribe((v) => (playerPosition.current = v));
-  }, [forward, backward, left, right, jump, shift, api]);
+    api.position.subscribe((v) => {
+      group.current.position.set(v[0], v[1] - 0.75, v[2]);
+    });
+  }, [forward, backward, left, right, jump, shift, api, group]);
 
   useFrame((state, delta) => {
     if (
@@ -132,14 +136,14 @@ export function Player(props) {
       const moveZ = walkDirection.z * velocity * delta;
       api.velocity.set(moveX * 20, 0, moveZ * 20);
       updateCameraTarget(moveX, moveZ);
+      // group.current.position.set(
+      //   playerPosition.current[0],
+      //   playerPosition.current[1] - 0.75,
+      //   playerPosition.current[2]
+      // );
     } else {
       api.velocity.set(0, 0, 0);
     }
-    group.current.position.set(
-      playerPosition.current[0],
-      playerPosition.current[1] - 0.5,
-      playerPosition.current[2]
-    );
   });
   return (
     <>
@@ -150,8 +154,9 @@ export function Player(props) {
         maxPolarAngle={Math.PI / 1.75}
         minDistance={2.5}
         maxDistance={2.5}
+        dampingFactor={0.5}
       />
-      <group {...props} dispose={null} ref={group}>
+      <group dispose={null} ref={group}>
         <group name="Scene">
           <mesh ref={sphereRef} />
           <group name="Armature" rotation={[0, Math.PI, 0]}>
