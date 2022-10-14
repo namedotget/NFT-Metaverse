@@ -5,14 +5,9 @@ import { MainScene } from "./scenes/MainScene";
 import { RoomScene } from "./scenes/RoomScene";
 import LoadingScreen from "../UI/LoadingScreen";
 export default function World(props) {
-  const { user } = props;
-  const [userData, setUserData] = useState(null);
+  const { user, userData } = props;
   const [scene, setScene] = useState("room");
   const testing = true;
-
-  useEffect(() => {
-    setUserData(JSON.parse(localStorage.getItem("user")));
-  }, []);
 
   function goToWorld(scene) {
     setScene(scene);
