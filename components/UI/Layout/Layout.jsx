@@ -7,19 +7,19 @@ import { UserWallet } from "@thirdweb-dev/sdk";
 
 export default function Layout(props) {
   const { user } = useUser();
-  if (props.children.type.name == "WorldPage") {
-    return (
-      <div className="UI">
-        <MainNav loggedIn world user={user} /> {props.children}
-      </div>
-    );
-  }
   if (!user) {
     return (
       <>
         <MainNav />
         {props.children}
       </>
+    );
+  }
+  if (props.children.type.name === "WorldPage") {
+    return (
+      <div className="UI">
+        <MainNav loggedIn world user={user} /> {props.children}
+      </div>
     );
   }
   return (

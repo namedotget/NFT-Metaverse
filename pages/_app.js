@@ -1,9 +1,7 @@
 import "../styles/globals.scss";
-import { useState, useEffect, Suspense } from "react";
-import Login from "../components/login/Login";
+import { useState, useEffect } from "react";
 import Layout from "../components/UI/Layout/Layout";
 import { ChainId, ThirdwebProvider } from "@thirdweb-dev/react";
-import LoadingScreen from "../components/UI/LoadingScreen";
 
 // This is the chainId your dApp will work on.
 const activeChainId = ChainId.Goerli;
