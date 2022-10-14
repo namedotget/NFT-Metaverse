@@ -44,7 +44,12 @@
 
 .worldBtn {
   position: absolute;
-  top: 10%;
-  left: 10%;
+  top: 7vh;
+  left: 5vw;
   z-index: 3;
+  width: 7vw;
+  height: 3.5vw;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.587);
+  backdrop-filter: blur(10px);
 }

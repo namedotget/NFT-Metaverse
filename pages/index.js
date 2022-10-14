@@ -8,10 +8,17 @@ import {
   useLogout,
 } from "@thirdweb-dev/react";
 import { getUser } from "../auth.config";
+import { useRouter } from "next/router";
 export default function HomePage(props) {
+  const router = useRouter();
+
+  function worldRoute() {
+    router.push("/world");
+  }
+
   return (
     <div className="pgContain">
-      <Home />
+      <Home route={worldRoute} />
     </div>
   );
 }

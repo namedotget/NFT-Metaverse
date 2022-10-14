@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import { useInput } from "../hooks/useInput";
 import { useEffect } from "react";
@@ -68,12 +68,13 @@ export function Player(props) {
     // }
     //update camera target
     cameraTarget.x = group.current.position.x;
-    cameraTarget.y = group.current.position.y + 1.8;
+    cameraTarget.y = group.current.position.y + 1.5;
     cameraTarget.z = group.current.position.z;
     if (controlsRef.current) controlsRef.current.target = cameraTarget;
   }
 
   useEffect(() => {
+    updateCameraTarget();
     let action = "";
     if (forward || backward || left || right) {
       action = "walking";
@@ -151,7 +152,7 @@ export function Player(props) {
         ref={controlsRef}
         enablePan={false}
         minPolarAngle={Math.PI / 4}
-        maxPolarAngle={Math.PI / 1.75}
+        maxPolarAngle={Math.PI / 2.25}
         minDistance={2.5}
         maxDistance={2.5}
         dampingFactor={0.5}

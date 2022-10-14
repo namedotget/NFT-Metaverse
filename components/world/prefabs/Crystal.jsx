@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-
+import Link from "next/link";
 export function Crystal(props) {
   const { balance } = props;
   const meshRef = useRef();
@@ -21,6 +21,7 @@ export function Crystal(props) {
             receiveShadow
             geometry={nodes.pPlatonic1_lambert1_0.geometry}
             material={materials.lambert1}
+            onClick={props?.route}
           />
         </group>
       </group>

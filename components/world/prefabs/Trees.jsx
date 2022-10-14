@@ -93,7 +93,7 @@ export function Trees(props) {
     for (let i = 0; i < count; i++) {
       tempTrees.push({
         position: { x: 0, y: 0 },
-        box: 2,
+        box: 1,
       });
       updatePosition(tempTrees, boundary);
     }

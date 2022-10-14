@@ -1,7 +1,7 @@
 import { usePlane } from "@react-three/cannon";
 import { useLoader } from "@react-three/fiber";
 import * as THREE from "three";
-export function GroundPlane() {
+export function GroundPlane(props) {
   const [diffMap, dispMap, normMap, roughMap] = useLoader(THREE.TextureLoader, [
     "/diff.jpg",
     "/disp.png",
@@ -28,8 +28,8 @@ export function GroundPlane() {
   }));
   return (
     <mesh ref={floorRef} receiveShadow>
-      <planeGeometry args={[1000, 1000]} />
-      <meshLambertMaterial color={"green"} />
+      <planeGeometry args={props.args} />
+      <meshLambertMaterial color={props.color} />
     </mesh>
   );
 }

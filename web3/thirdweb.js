@@ -9,7 +9,7 @@ import rewardABI from "../web3/build/ERC-1155/abi.json";
 import energyABI from "../web3/build/energy/abi.json";
 import collectionABI from "../web3/build/ERC-721/abi.json";
 import { formatEther } from "ethers/lib/utils";
-import { BigNumber } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import { useSDK } from "@thirdweb-dev/react";
 
 export async function checkBalance(sdk, address) {
@@ -42,6 +42,18 @@ export async function getNFTSupply(sdk) {
   const totalSupply = JSON.parse(await contract.call("totalSupply"));
   const maxSupply = JSON.parse(await contract.call("maxSupply"));
   return `${totalSupply}/${maxSupply}`;
+}
+
+export async function userMintNFT(sdk) {
+  const contract = sdk.getContractFromAbi(collectionAddress, collectionABI);
+  try {
+    await contract.call("mint", 1, {
+      value: ethers.utils.parseEther("0.01"),
+    });
+    console.log("1 NFT has been minted");
+  } catch (err) {
+    console.log("transaction cancelled");
+  }
 }
 
 ///////////////

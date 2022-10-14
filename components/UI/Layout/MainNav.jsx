@@ -15,6 +15,7 @@ import { getEnergyBalance, rewardsOwned } from "../../../web3/thirdweb";
 export default function MainNav(props) {
   const [userData, setUserData] = useState({});
   const [hidden, setHidden] = useState(props.world);
+  const [refresh, setRefresh] = useState(true);
   const { user } = props;
   const address = useAddress();
   const logout = useLogout();
@@ -39,20 +40,25 @@ export default function MainNav(props) {
         })();
       }
     }
-  }, [profileModal, address, user?.address, logout, sdk]);
+  });
 
   return (
     <>
-      {hidden ? (
+      {hidden && props.world ? (
         <button className={classes.worldBtn} onClick={() => setHidden(false)}>
           menu
         </button>
       ) : (
         <div className={classes.header}>
-          <button className={classes.worldBtn} onClick={() => setHidden(true)}>
-            hide
-          </button>
-          <h2>NFTverse</h2>
+          {props.world && (
+            <button
+              className={classes.worldBtn}
+              onClick={() => setHidden(true)}
+            >
+              hide
+            </button>
+          )}
+          {!props.world && <h2>NFTverse</h2>}
           <div className={classes.nav}>
             <Link href={"/"}>
               <button>
