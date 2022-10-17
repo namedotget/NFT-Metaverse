@@ -39,9 +39,6 @@ export default function World(props) {
         {scene === "room" && (
           <RoomScene userData={userData} user={user} goToWorld={goToWorld} />
         )}
-        {scene === "pixel" && (
-          <PixelScene userData={userData} user={user} goToWorld={goToWorld} />
-        )}
       </Suspense>
     </Canvas>
   );
