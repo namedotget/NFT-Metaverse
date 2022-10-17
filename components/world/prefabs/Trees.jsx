@@ -16,11 +16,11 @@ export function Trees(props) {
 
   function TreeType(TreeProps) {
     const rotationY = (Math.random() * Math.PI) / 5;
-    let { pos } = TreeProps;
+    let { pos, reward } = TreeProps;
     const types = {
-      1: <Tree1 position={pos} rotY={rotationY} />,
-      2: <Tree2 position={pos} rotY={rotationY} />,
-      3: <Tree3 position={pos} rotY={rotationY} />,
+      1: <Tree1 position={pos} rotY={rotationY} reward={reward} />,
+      2: <Tree2 position={pos} rotY={rotationY} reward={reward} />,
+      3: <Tree3 position={pos} rotY={rotationY} reward={reward} />,
     };
     return types[type];
   }
@@ -114,6 +114,7 @@ export function Trees(props) {
               0,
               tree.position.z + parentPosition[2],
             ]}
+            reward={i === 2 ? true : false}
           />
           <mesh />
         </Detailed>

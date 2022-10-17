@@ -3,19 +3,16 @@ import Link from "next/link";
 import {
   ConnectWallet,
   useAddress,
-  useMetamask,
-  useLogin,
   useLogout,
   useSDK,
 } from "@thirdweb-dev/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import ProfileModal from "./ProfileModal";
 import { getEnergyBalance, rewardsOwned } from "../../../web3/thirdweb";
 
 export default function MainNav(props) {
   const [userData, setUserData] = useState({});
   const [hidden, setHidden] = useState(props.world);
-  const [refresh, setRefresh] = useState(true);
   const { user } = props;
   const address = useAddress();
   const logout = useLogout();
@@ -40,7 +37,7 @@ export default function MainNav(props) {
         })();
       }
     }
-  });
+  }, [user, address, profileModal, hidden]);
 
   return (
     <>

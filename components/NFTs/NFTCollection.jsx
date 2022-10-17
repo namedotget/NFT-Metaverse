@@ -8,7 +8,7 @@ export default function NFTCollection(props) {
         3/100 <br /> have been found !
       </p>
       <div className={classes.img}>
-        <Image src={"/blobguys_prev.gif"} width={275} height={275} />
+        <Image src={"/blobguys_prev.gif"} width={300} height={300} />
       </div>
     </div>
   );

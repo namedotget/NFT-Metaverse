@@ -8,8 +8,11 @@ import { Trees } from "../prefabs/Trees";
 
 import { Player } from "../prefabs/Player";
 import { MintNFT } from "../prefabs/thirdweb/MintNFT";
+import { EnergyReward } from "../prefabs/thirdweb/EnergyReward";
+import { Portal } from "../prefabs/Portal";
 export function MainScene(props) {
   const { user } = props;
+  console.log(props.userData);
   return (
     <>
       <Lights />
@@ -21,9 +24,7 @@ export function MainScene(props) {
         broadphase={"SAP"}
       >
         <Debug>
-          <mesh position={[0, 0, 5]} onClick={() => props.goToWorld("room")}>
-            <boxGeometry />
-          </mesh>
+          <Portal onClick={() => props.goToWorld("room")} text={"room"} />
           <GroundPlane args={[1000, 1000]} color={"green"} />
           <WorldCrystal
             position={[3, 1, 2]}
@@ -31,6 +32,7 @@ export function MainScene(props) {
             animated
             world
             balance={props?.userData?.energyBalance}
+            user={user}
           />
           <Suspense fallback={null}>
             <Trees count={10} boundary={10} type={"3"} position={[-10, 0, 0]} />
@@ -41,7 +43,8 @@ export function MainScene(props) {
           <Player />
         </Debug>
       </Physics>
-      <fogExp2 attach="fog" args={[0xffffff, 0.09]} />
+      <fogExp2 attach="fog" args={["black", 0.09]} />
+      {/* <fogExp2 attach="fog" args={["white", 0.12]} /> */}
     </>
   );
 }

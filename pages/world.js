@@ -1,11 +1,26 @@
 import World from "../components/world/World";
 import { getUser } from "../auth.config";
 import { useEffect, useState } from "react";
+import { getEnergyBalance, rewardsOwned } from "../web3/thirdweb";
+import {
+  useAddress,
+  useConnect,
+  useSDK,
+  useMetamask,
+} from "@thirdweb-dev/react";
 export default function WorldPage(props) {
   const { user } = props;
   const [userData, setUserData] = useState(null);
+  const address = useAddress();
+  const connect = useMetamask();
+  const sdk = useSDK();
   useEffect(() => {
-    setUserData(JSON.parse(localStorage.getItem("user")));
+    (async () => {
+      const energyBalance = await getEnergyBalance(sdk, user.address);
+      const rewardBalance = await rewardsOwned(sdk, user.address);
+      setUserData({ energyBalance, rewardBalance });
+    })();
+    if (!address) connect();
   }, []);
   return (
     <div className="pgContain">

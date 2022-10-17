@@ -25,7 +25,8 @@
     "react-dom": "^18.1.0",
     "react-paginate": "^8.1.3",
     "react-three-third-person": "^0.4.6",
-    "sass": "^1.55.0"
+    "sass": "^1.55.0",
+    "three-stdlib": "^2.17.3"
   },
   "devDependencies": {
     "eslint": "8.24.0",

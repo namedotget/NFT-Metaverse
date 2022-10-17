@@ -10,12 +10,12 @@
     margin: 0;
   }
   .info {
-    font-size: 2.5vw;
+    font-size: 2vw;
     font-weight: bold;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    flex-direction: row;
     gap: 5%;
     background: grey;
     width: 80%;
@@ -24,9 +24,12 @@
     background-color: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(50px);
     .balances {
+      padding: 5%;
       display: flex;
       justify-content: space-around;
       align-items: center;
+      flex-direction: column;
+      gap: 2vw;
       width: 100%;
       .card {
         display: flex;
@@ -37,7 +40,7 @@
           display: flex;
           margin: 0;
           padding: 0;
-          width: 50%;
+          width: 10vw;
           height: 13vh;
           span {
             position: relative;

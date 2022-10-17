@@ -10,7 +10,7 @@ export function Description(props) {
   return (
     <mesh {...props}>
       <textGeometry args={[props.text, { font, size: 0.6, height: 0.25 }]} />
-      <meshPhysicalMaterial attach="material" color={"white"} />
+      <meshPhysicalMaterial attach="material" color={props.color} />
     </mesh>
   );
 }

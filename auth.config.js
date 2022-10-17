@@ -6,7 +6,7 @@ import { ThirdwebAuth } from "@thirdweb-dev/auth/next";
 // )["ADMIN_PRIVATE_KEY"];
 // export const { ThirdwebAuthHandler, getUser } = ThirdwebAuth({
 //   privateKey: secret,
-//   domain: "https://localhost:3000",
+//   domain: "localhost:3000",
 // });
 
 //PRODUCTION :

@@ -14,7 +14,7 @@ export function Tree2(props) {
 
   const [cubeRef] = useBox(() => ({
     mass: 1000,
-    args: [2.5, 2, 0.8],
+    args: [2.5, 2, 0.6],
     material: {
       friction: 5,
     },

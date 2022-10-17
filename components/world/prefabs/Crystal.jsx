@@ -3,7 +3,6 @@ import { useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import Link from "next/link";
 export function Crystal(props) {
-  const { balance } = props;
   const meshRef = useRef();
   const { nodes, materials } = useGLTF("/crystal.glb");
 

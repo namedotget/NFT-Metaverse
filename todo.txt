@@ -55,6 +55,5 @@ Pages & Components:
 
 
 TODO :
-    - Work on physics for Player
-    - Add UI component for World
-    - Add thirdweb helper functions for smart contracts
+    - fix auth "connect wallet" button
+    - add loading screens

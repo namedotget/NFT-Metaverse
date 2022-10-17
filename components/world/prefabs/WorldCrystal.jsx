@@ -4,10 +4,13 @@ import { Description } from "./Description";
 import { useFrame } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
 import { useGLTF } from "@react-three/drei";
+import { getEnergyBalance } from "../../../web3/thirdweb";
+import { useSDK } from "@thirdweb-dev/react";
 export function WorldCrystal(props) {
+  const { user } = props;
   const meshRef = useRef();
   const loadingRef = useRef();
-  const [balance, setBalance] = useState(props.balance);
+  const [balance, setBalance] = useState(0);
   const [loading, setLoading] = useState(false);
   const { nodes, materials } = useGLTF("/crystal.glb");
   const [group] = useBox(() => ({
@@ -20,10 +23,13 @@ export function WorldCrystal(props) {
     ...props,
     type: "Kinematic",
   }));
-  function refreshBalance() {
+  const sdk = useSDK();
+
+  async function refreshBalance() {
     clearTimeout();
     setLoading(true);
-    setBalance(JSON.parse(localStorage.getItem("user")).energyBalance);
+    const energyBalance = await getEnergyBalance(sdk, user?.address);
+    setBalance(energyBalance);
     setTimeout(() => {
       setLoading(false);
     }, 1000);
@@ -61,11 +67,14 @@ export function WorldCrystal(props) {
               </group>
             ) : (
               <>
-                <Text position={[-1, 2.75, 1.75]} text={balance} />
+                <Text
+                  position={[-1, 2.75, 1.75]}
+                  text={balance || props.balance || 0}
+                />
                 <Text
                   position={[1, 2.75, -1.75]}
                   rotation={[0, Math.PI, 0]}
-                  text={balance}
+                  text={balance || props.balance || 0}
                 />
               </>
             )}

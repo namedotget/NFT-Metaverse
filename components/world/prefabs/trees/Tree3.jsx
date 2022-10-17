@@ -42,7 +42,9 @@ export function Tree3(props) {
           receiveShadow
           geometry={nodes.p0025_1.geometry}
           material={materials["Standard_00FF00.002"]}
-        />
+        >
+          <meshToonMaterial color={"red"} />
+        </mesh>
         <mesh
           castShadow
           receiveShadow

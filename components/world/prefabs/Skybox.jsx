@@ -9,12 +9,12 @@ export const Skybox = () => {
     scene.background = new CubeTextureLoader()
       .setPath("/images/skybox/")
       .load([
-        "left.bmp",
-        "right.bmp",
-        "top.bmp",
-        "bottom.bmp",
-        "back.bmp",
-        "front.bmp",
+        "left.png",
+        "right.png",
+        "top.png",
+        "bot.png",
+        "back.png",
+        "front.png",
       ]);
   }, [scene]);
 
