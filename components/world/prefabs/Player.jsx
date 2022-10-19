@@ -132,7 +132,7 @@ export function Player(props) {
       walkDirection.applyAxisAngle(rotateAngle, newDirectionOffset);
 
       // run/walk velocity
-      const velocity = currentAction.current == "running" ? 8 : 5;
+      const velocity = currentAction.current == "running" ? 14 : 7;
       const moveX = walkDirection.x * velocity * delta;
       const moveZ = walkDirection.z * velocity * delta;
       api.velocity.set(moveX * 20, 0, moveZ * 20);
