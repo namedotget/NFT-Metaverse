@@ -14,11 +14,11 @@ export function Tree2(props) {
 
   const [cubeRef] = useBox(() => ({
     mass: 1000,
-    args: [2.5, 2, 0.6],
+    args: [0.5, 2, 0.5],
     material: {
       friction: 5,
     },
-    position: [props.position[0] - 0.6, 1, props.position[2] + 0],
+    position: [props.position[0] + 0, 1, props.position[2] + 0],
     rotation: [0, rotY, 0],
     type: "Kinematic",
   }));
@@ -38,7 +38,9 @@ export function Tree2(props) {
             receiveShadow
             geometry={nodes.s0028_1.geometry}
             material={materials["Standard_98734B.003"]}
-          />
+          >
+            <meshLambertMaterial color={0xbd6844} />
+          </mesh>
           <mesh
             onClick={dropLeaf}
             ref={meshRef}

@@ -13,17 +13,21 @@ export function Tree4(props) {
             receiveShadow
             geometry={nodes.s0103_1.geometry}
             material={materials["Standard_906A40.001"]}
-          />
+          >
+            <meshLambertMaterial color={0xbd6844} />
+          </mesh>
           <mesh
             castShadow
             receiveShadow
             geometry={nodes.s0103_2.geometry}
             material={materials["Standard_00FF00.003"]}
-          />
+          >
+            <meshLambertMaterial color={0x42b34d} />
+          </mesh>
         </group>
       </group>
     </group>
   );
 }
 
-useGLTF.preload("/tree_4.glb");
+useGLTF.preload("/trees/tree_4.glb");

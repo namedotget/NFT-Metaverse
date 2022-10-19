@@ -1,8 +1,16 @@
 import React, { useRef, useEffect } from "react";
 import { usePlane } from "@react-three/cannon";
-
+import { useLoader } from "@react-three/fiber";
+import { TextureLoader } from "three";
 export function Room(props) {
   /** Plane collider */
+  const [left, right, top, front, back] = useLoader(TextureLoader, [
+    "/images/skybox/left.png",
+    "/images/skybox/right.png",
+    "/images/skybox/top.png",
+    "/images/skybox/front.png",
+    "/images/skybox/back.png",
+  ]);
 
   const { color } = props;
 
@@ -51,7 +59,7 @@ export function Room(props) {
         scale={[50, 30, 100]}
       >
         <planeBufferGeometry />
-        <meshPhongMaterial color={color} receiveShadow />
+        <meshPhongMaterial map={front} />
       </mesh>
       <mesh
         ref={wallRef2}
@@ -60,7 +68,7 @@ export function Room(props) {
         scale={[50, 30, 100]}
       >
         <planeBufferGeometry />
-        <meshPhongMaterial color={color} receiveShadow />
+        <meshPhongMaterial color={"red"} />
       </mesh>
       <mesh
         ref={wallRef3}
@@ -69,7 +77,7 @@ export function Room(props) {
         scale={[50, 30, 100]}
       >
         <planeBufferGeometry />
-        <meshPhongMaterial color={color} receiveShadow />
+        <meshPhongMaterial />
       </mesh>
       <mesh
         ref={wallRef4}
@@ -87,7 +95,7 @@ export function Room(props) {
         scale={[50, 50, 100]}
       >
         <planeBufferGeometry />
-        <meshPhongMaterial color={color} receiveShadow />
+        <meshPhongMaterial map={top} />
       </mesh>
     </group>
   );

@@ -6,6 +6,7 @@ import { RoomScene } from "./scenes/RoomScene";
 import LoadingScreen from "../UI/LoadingScreen";
 import { getEnergyBalance, rewardsOwned } from "../../web3/thirdweb";
 import { useSDK } from "@thirdweb-dev/react";
+import { StoreScene } from "./scenes/StoreScene";
 export default function World(props) {
   const { user, userData } = props;
   const [scene, setScene] = useState("main");
@@ -21,11 +22,16 @@ export default function World(props) {
       const rewardBalance = await rewardsOwned(sdk, user.address);
       if (rewardBalance >= 1) setScene(scene);
     }
-    if (scene === "main") setScene(scene);
+    if (scene === "main" || scene === "store") setScene(scene);
   }
 
   return (
-    <Canvas shadows flat camera={{ position: [0, 5, 10] }}>
+    <Canvas
+      shadows
+      flat
+      camera={{ position: [0, 5, 10] }}
+      style={{ background: "black" }}
+    >
       {testing && (
         <>
           <Stats />
@@ -38,6 +44,9 @@ export default function World(props) {
         )}
         {scene === "room" && (
           <RoomScene userData={userData} user={user} goToWorld={goToWorld} />
+        )}
+        {scene === "store" && (
+          <StoreScene userData={userData} user={user} goToWorld={goToWorld} />
         )}
       </Suspense>
     </Canvas>

@@ -15,7 +15,7 @@ export function WorldCrystal(props) {
   const { nodes, materials } = useGLTF("/crystal.glb");
   const [group] = useBox(() => ({
     mass: 500,
-    args: [2, 2, 2],
+    args: [1, 2, 1],
     material: {
       friction: 1,
       restitution: 0,
@@ -45,7 +45,7 @@ export function WorldCrystal(props) {
   });
   return (
     <group {...props} dispose={null} castShadow ref={group}>
-      <group rotation={[-Math.PI / 2, 0, 0]}>
+      <group position={[0, -1, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={0.75}>
         <group rotation={[Math.PI / 2, 0, 0]}>
           <group ref={meshRef} onClick={refreshBalance}>
             <mesh

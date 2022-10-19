@@ -19,8 +19,8 @@ export function Lights() {
       <ambientLight intensity={0.1} />
       <directionalLight
         target={camera}
-        color={"yellow"}
-        intensity={0.7}
+        color={"lightblue"}
+        intensity={1.5}
         ref={lightRef1}
         castShadow
         shadow-mapSize-height={2000}
@@ -30,7 +30,7 @@ export function Lights() {
         shadow-camera-top={25}
         shadow-camera-bottom={-25}
       />
-      <hemisphereLight args={["purple", "green", 0.7]} />
+      <hemisphereLight args={["cyan", "green", 0.4]} />
     </>
   );
 }

@@ -1,6 +1,6 @@
 import { ThirdwebAuth } from "@thirdweb-dev/auth/next";
 
-//DEV
+// //DEV;
 // const secret = JSON.parse(
 //   require("child_process").execSync("node doppler_secrets.js")
 // )["ADMIN_PRIVATE_KEY"];

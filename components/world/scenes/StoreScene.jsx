@@ -10,7 +10,10 @@ import { Player } from "../prefabs/Player";
 import { Room } from "../prefabs/Room";
 import { Portal } from "../prefabs/Portal";
 import { useThree, useFrame } from "@react-three/fiber";
-export function RoomScene(props) {
+
+import { PhysicCube } from "../prefabs/PhysicCube";
+import { VendingMachine } from "../prefabs/VendingMachine";
+export function StoreScene(props) {
   return (
     <>
       <pointLight position={[0, 15, 0]} intensity={1} />
@@ -22,16 +25,13 @@ export function RoomScene(props) {
         broadphase={"SAP"}
       >
         <Debug>
-          <Room args={[50, 50]} color={"black"} />
+          <PhysicCube args={[10, 10]} />
+          <VendingMachine position={[0, 0, 4]} />
           <Portal onClick={() => props.goToWorld("main")} text={"main"} />
-          <GroundPlane args={[50, 50]} color={"grey"} />
-          <Suspense fallback={null}>
-            <Trees position={[5, 0, 0]} count={100} boundary={48} type={"3"} />
-          </Suspense>
+          <GroundPlane args={[10, 10]} color={"grey"} />
           <Player />
         </Debug>
       </Physics>
-      <fogExp2 attach="fog" args={["lightblue", 0.15]} />
     </>
   );
 }

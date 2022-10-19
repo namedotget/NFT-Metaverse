@@ -51,7 +51,7 @@ export function Player(props) {
   const [sphereRef, api] = useCylinder(() => ({
     mass: 100,
     fixedRotation: true,
-    args: [0.25, 0.32, 1.55, 7],
+    args: [0.1, 0.22, 1, 7],
     material: {
       friction: 0,
     },
@@ -68,7 +68,7 @@ export function Player(props) {
     // }
     //update camera target
     cameraTarget.x = group.current.position.x;
-    cameraTarget.y = group.current.position.y + 1.5;
+    cameraTarget.y = group.current.position.y + 1;
     cameraTarget.z = group.current.position.z;
     if (controlsRef.current) controlsRef.current.target = cameraTarget;
   }
@@ -97,7 +97,7 @@ export function Player(props) {
     });
     api.position.subscribe((v) => (playerPosition.current = v));
     api.position.subscribe((v) => {
-      group?.current?.position.set(v[0], v[1] - 0.75, v[2]);
+      group?.current?.position.set(v[0], v[1] - 0.5, v[2]);
     });
   }, [forward, backward, left, right, jump, shift, api, group]);
 
@@ -152,15 +152,15 @@ export function Player(props) {
         ref={controlsRef}
         enablePan={false}
         minPolarAngle={Math.PI / 4}
-        maxPolarAngle={Math.PI / 2.25}
-        minDistance={2.5}
-        maxDistance={2.5}
+        maxPolarAngle={Math.PI / 2.1}
+        minDistance={1}
+        maxDistance={1}
         dampingFactor={0.5}
       />
       <group dispose={null} ref={group}>
         <group name="Scene">
           <mesh ref={sphereRef} />
-          <group name="Armature" rotation={[0, Math.PI, 0]}>
+          <group name="Armature" rotation={[0, Math.PI, 0]} scale={0.6}>
             <primitive object={nodes.mixamorigHips} />
             <primitive object={nodes.Ctrl_ArmPole_IK_Left} />
             <primitive object={nodes.Ctrl_Hand_IK_Left} />

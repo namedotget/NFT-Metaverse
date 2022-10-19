@@ -25,7 +25,12 @@ export function MainScene(props) {
       >
         <Debug>
           <Portal onClick={() => props.goToWorld("room")} text={"room"} />
-          <GroundPlane args={[1000, 1000]} color={"green"} />
+          <Portal
+            onClick={() => props.goToWorld("store")}
+            text={"store"}
+            position={[3, 0, 3]}
+          />
+          <GroundPlane args={[250, 250]} color={"green"} />
           <WorldCrystal
             position={[3, 1, 2]}
             scale={0.5}
@@ -35,16 +40,15 @@ export function MainScene(props) {
             user={user}
           />
           <Suspense fallback={null}>
-            <Trees count={10} boundary={10} type={"3"} position={[-10, 0, 0]} />
+            <Trees count={10} boundary={10} type={"1"} position={[-10, 0, 0]} />
             <Trees position={[10, 0, 0]} count={10} boundary={10} type={"2"} />
-            <Trees position={[0, 0, 10]} count={10} boundary={10} type={"1"} />
+            <Trees position={[0, 0, 10]} count={10} boundary={10} type={"5"} />
           </Suspense>
           <MintNFT position={[1, 0.1, 0]} user={user} />
           <Player />
         </Debug>
       </Physics>
-      <fogExp2 attach="fog" args={["black", 0.09]} />
-      {/* <fogExp2 attach="fog" args={["white", 0.12]} /> */}
+      <fogExp2 attach="fog" args={["black", 0.08]} />
     </>
   );
 }

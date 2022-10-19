@@ -10,7 +10,7 @@ export function Portal(props) {
     textRef.current.lookAt(camera.position.x, 0.5, camera.position.z);
   });
   return (
-    <>
+    <group {...props}>
       <mesh onClick={onClick}>
         <boxGeometry args={[1]} />
       </mesh>
@@ -21,6 +21,6 @@ export function Portal(props) {
           color={"lightblue"}
         />
       </group>
-    </>
+    </group>
   );
 }

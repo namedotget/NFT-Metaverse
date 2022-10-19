@@ -7,6 +7,9 @@ import { Raycaster } from "three/src/core/Raycaster";
 import { useBox } from "@react-three/cannon";
 import { Tree2 } from "./trees/Tree2";
 import { Tree3 } from "./trees/Tree3";
+import { Tree4 } from "./trees/Tree4";
+import { Tree5 } from "./trees/Tree5";
+import { Tree6 } from "./trees/Tree6";
 
 export function Trees(props) {
   const { count, boundary, type } = props;
@@ -15,12 +18,15 @@ export function Trees(props) {
   const { camera, scene } = useThree();
 
   function TreeType(TreeProps) {
-    const rotationY = (Math.random() * Math.PI) / 5;
+    const rotationY = (Math.random() * Math.PI) / 2.5;
     let { pos, reward } = TreeProps;
     const types = {
       1: <Tree1 position={pos} rotY={rotationY} reward={reward} />,
       2: <Tree2 position={pos} rotY={rotationY} reward={reward} />,
       3: <Tree3 position={pos} rotY={rotationY} reward={reward} />,
+      4: <Tree4 position={pos} rotY={rotationY} reward={reward} />,
+      5: <Tree5 position={pos} rotY={rotationY} reward={reward} />,
+      6: <Tree6 position={pos} rotY={rotationY} reward={reward} />,
     };
     return types[type];
   }
@@ -104,7 +110,7 @@ export function Trees(props) {
       {trees.map((tree, i) => (
         <Detailed
           key={i}
-          distances={[0, 35]}
+          distances={[0, 20]}
           position={[tree.position.x, 0, tree.position.z]}
           parent={scene}
         >

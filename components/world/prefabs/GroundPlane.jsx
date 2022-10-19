@@ -34,18 +34,27 @@ export function GroundPlane(props) {
     },
   }));
   return (
-    <Plane rotation={[-Math.PI / 2, 0, 0]} args={props.args}>
-      <meshStandardMaterial
-        attach={"material"}
-        color="white"
-        map={baseMap}
-        normalMap={normMap}
-        displacementMap={dispMap}
-        displacementScale={0.5}
-        roughnessMap={roughMap}
-        roughness={0.05}
-        aoMap={aOMap}
-      />
-    </Plane>
+    <group>
+      <Plane rotation={[-Math.PI / 2, 0, 0]} args={props.args} ref={floorRef}>
+        <meshStandardMaterial
+          attach={"material"}
+          map={baseMap}
+          normalMap={normMap}
+          displacementMap={dispMap}
+          displacementScale={0.5}
+          roughnessMap={roughMap}
+          roughness={0.5}
+          aoMap={aOMap}
+        />
+      </Plane>
+      <Plane
+        rotation={[-Math.PI / 2, 0, 0]}
+        position={[0, 0.1, 0]}
+        args={props.args}
+        receiveShadow
+      >
+        <shadowMaterial opacity={0.5} />
+      </Plane>
+    </group>
   );
 }

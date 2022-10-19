@@ -69,7 +69,7 @@ export function Tree1(props) {
             geometry={nodes.s0038_1.geometry}
             material={materials.Standard_98734B}
           >
-            <meshLambertMaterial color={0x6e3c16} />
+            <meshLambertMaterial color={0xbd6844} />
           </mesh>
           <mesh
             castShadow
@@ -87,7 +87,9 @@ export function Tree1(props) {
             geometry={nodes.s0038_3.geometry}
             material={materials.Standard_906A40}
             ref={swirlRef}
-          />
+          >
+            <meshLambertMaterial color={"cyan"} />
+          </mesh>
         </group>
       </group>
     </group>

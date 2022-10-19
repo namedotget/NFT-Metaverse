@@ -17,11 +17,11 @@ export function Tree3(props) {
   }
   const [cubeRef] = useBox(() => ({
     mass: 1000,
-    args: [1.1, 2, 3.25],
+    args: [1, 2, 1.2],
     material: {
       friction: 5,
     },
-    position: [props.position[0] + 0.5, 1, props.position[2] + 0.3],
+    position: [props.position[0] + 0.3, 1, props.position[2] - 0.2],
     rotation: [0, rotY, 0],
     type: "Kinematic",
   }));
@@ -50,7 +50,9 @@ export function Tree3(props) {
           receiveShadow
           geometry={nodes.p0025_2.geometry}
           material={materials["Standard_98734B.001"]}
-        />
+        >
+          <meshLambertMaterial color={0xbd6844} />
+        </mesh>
       </group>
     </group>
   );
