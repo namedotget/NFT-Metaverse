@@ -72,12 +72,9 @@ export default function MainNav(props) {
                 <img src={"/images/icons/user.png"} width={30} height={30} />
               </button>
             )}
-            <ConnectWallet
-              auth={"/api/auth"}
-              className={classes.connect}
-              key={"connectwallet"}
-              style={profileModal ? { display: "none" } : ""}
-            />
+            <div style={profileModal ? { opacity: 0 } : {}}>
+              <ConnectWallet auth={"/api/auth"} className={classes.connect} />
+            </div>
           </div>
           {profileModal && (
             <ProfileModal close={toggleProfileModal} userData={userData} />

@@ -14,6 +14,7 @@ import { useThree, useFrame } from "@react-three/fiber";
 import { PhysicCube } from "../prefabs/PhysicCube";
 import { VendingMachine } from "../prefabs/VendingMachine";
 export function StoreScene(props) {
+  const { notification } = props;
   return (
     <>
       <pointLight position={[0, 15, 0]} intensity={1} />
@@ -26,7 +27,11 @@ export function StoreScene(props) {
       >
         <Debug>
           <PhysicCube args={[10, 10]} />
-          <VendingMachine position={[0, 0, 4]} user={props.user} />
+          <VendingMachine
+            position={[0, 0, 4]}
+            user={props.user}
+            notification={notification}
+          />
           <Portal onClick={() => props.goToWorld("main")} text={"main"} />
           <GroundPlane args={[10, 10]} color={"grey"} />
           <Player />

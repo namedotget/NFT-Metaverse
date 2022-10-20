@@ -4,16 +4,13 @@ import { useLoader } from "@react-three/fiber";
 import { TextureLoader } from "three";
 import { Crystal } from "./Crystal";
 import { Description } from "./Description";
-import { buyKey, REWARDS } from "../../../web3/thirdweb";
+import { buyKey, REWARDS, spendKey } from "../../../web3/thirdweb";
 import { useSDK } from "@thirdweb-dev/react";
 export function VendingMachine(props) {
-  const { user } = props;
+  const { user, notification } = props;
   const group = useRef();
-  const nextBtn = useRef();
-  const prevBtn = useRef();
-  const buyBtn = useRef();
-  const imgRef = useRef();
   const [curItem, setCurItem] = useState(0);
+  const [loading, setLoading] = useState(false);
   const { nodes, materials } = useGLTF(
     "/images/textures/vending_machine__vgdc.glb"
   );
@@ -30,9 +27,37 @@ export function VendingMachine(props) {
     setCurItem(curItem - 1);
   }
 
-  async function buy() {
+  //buyKey passes w rewards || buyKey passes on opensea
+  async function clickBuyKey() {
+    let click = 0;
+    click++;
     if (curItem === 1) return;
-    await buyKey(sdk, user.address, curItem + 1);
+    setLoading(true);
+    if (click > 1) return;
+    try {
+      console.log("test");
+      await buyKey(sdk, user.address, curItem + 1, notification);
+      notification("success", `Woohoo! You recieved 🔑${curItem + 1}`);
+    } catch (err) {
+      notification("error", err.message);
+    }
+    click--;
+    setLoading(false);
+  }
+
+  async function spend() {
+    let click = 0;
+    click++;
+    setLoading(true);
+    if (click > 1) return;
+    try {
+      if (loading) return;
+      await spendKey(sdk, user.address, 1);
+      notification("success", "🔑 has been burned");
+    } catch (err) {
+      notification("error", "could not burn 🔑");
+    }
+    setLoading(false);
   }
 
   return (
@@ -43,7 +68,7 @@ export function VendingMachine(props) {
       rotation={[0, Math.PI, 0]}
       scale={0.58}
     >
-      <group name="Sketchfab_Scene">
+      <group name="Sketchfab_Scene" position={[0, -0.65, 0]}>
         <group name="Sketchfab_model" rotation={[-Math.PI / 2, 0, 0]}>
           {/* custom-screen */}
           <group>
@@ -54,7 +79,7 @@ export function VendingMachine(props) {
             <mesh
               position={[-0.025, -0.627, 3]}
               rotation={[Math.PI / 2, 0, 0]}
-              ref={imgRef}
+              onClick={spend}
             >
               <planeGeometry args={[0.75, 0.75]} />
               <meshStandardMaterial map={keys[curItem]} />
@@ -76,7 +101,7 @@ export function VendingMachine(props) {
 
             {/* custom pagination */}
             <group position={[-0.25, -0.6, 1.6]}>
-              <group ref={prevBtn} onClick={prev}>
+              <group onClick={prev}>
                 <RoundedBox args={[0.4, 0.1, 0.4]}>
                   <meshPhongMaterial />
                 </RoundedBox>
@@ -89,7 +114,7 @@ export function VendingMachine(props) {
                   position={[-0.06, 0, -0.09]}
                 />
               </group>
-              <group ref={nextBtn} onClick={next}>
+              <group onClick={next}>
                 <RoundedBox position={[0.45, 0, 0]} args={[0.4, 0.1, 0.4]}>
                   <meshPhongMaterial />
                 </RoundedBox>
@@ -110,15 +135,19 @@ export function VendingMachine(props) {
               <boxGeometry args={[0.5, 0.25, 0.75]} />
               <meshPhongMaterial color={0xacfcfb} />
             </mesh>
-            {/* custom buy button */}
-            <group position={[-1.05, -0.31, 2.45]} ref={buyBtn} onClick={buy}>
+            {/* custom buyKey button */}
+
+            <group
+              position={[-1.05, -0.31, 2.45]}
+              onClick={!loading ? clickBuyKey : () => console.log("loading")}
+            >
               <RoundedBox args={[0.4, 0.4, 0.5]}>
-                <meshPhongMaterial color={"lightgreen"} />
+                <meshPhongMaterial color={!loading ? "lightgreen" : "green"} />
               </RoundedBox>
               <Description
                 position={[-0.15, -0.155, -0.05]}
                 rotation={[Math.PI / 2, 0, 0]}
-                text={"buy"}
+                text={!loading ? "buy" : "..."}
                 size={"0.2"}
                 height={"0.05"}
               />

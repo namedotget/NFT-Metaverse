@@ -1,0 +1,55 @@
+.notification {
+  padding: 2vw;
+  position: absolute;
+  top: 3%;
+  width: 60vw;
+  height: 30vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 30px;
+  background-color: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(50px);
+  z-index: 1;
+  animation: fade-inOut 5s;
+  div {
+    padding: 3vw;
+    width: 95%;
+    height: 100%;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5vw;
+    font-weight: bold;
+  }
+  .error {
+    color: rgb(199, 39, 39);
+    background-color: rgba(250, 56, 56, 0.6);
+  }
+  .success {
+    color: rgb(65, 181, 65);
+    background-color: rgba(86, 244, 86, 0.6);
+  }
+}
+
+@keyframes fade-inOut {
+  0% {
+    opacity: 0.1;
+    top: -10%;
+  }
+  20% {
+    opacity: 1;
+    top: 3%;
+  }
+
+  80% {
+    opacity: 1;
+    top: 3%;
+  }
+  100% {
+    opacity: 0;
+    top: -10%;
+  }
+}

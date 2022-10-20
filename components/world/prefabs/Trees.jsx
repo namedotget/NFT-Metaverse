@@ -18,8 +18,8 @@ export function Trees(props) {
   const { camera, scene } = useThree();
 
   function TreeType(TreeProps) {
-    const rotationY = (Math.random() * Math.PI) / 2.5;
     let { pos, reward } = TreeProps;
+    const rotationY = Math.PI / pos[0] / pos[2];
     const types = {
       1: <Tree1 position={pos} rotY={rotationY} reward={reward} />,
       2: <Tree2 position={pos} rotY={rotationY} reward={reward} />,
@@ -115,6 +115,7 @@ export function Trees(props) {
           parent={scene}
         >
           <TreeType
+            id={i}
             pos={[
               tree.position.x + parentPosition[0],
               0,

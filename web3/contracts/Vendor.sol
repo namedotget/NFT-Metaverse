@@ -16,23 +16,20 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
+import "@openzeppelin/contracts/access/Ownable.sol";
 import "hardhat/console.sol";
 import "./Energy.sol";
-import "./RewardNFT.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import "./Keys.sol";
 
 contract Vendor is Ownable {
   // Our Token Contract
   Energy energy;
-  RewardNFT reward;
-  //Registered NFT Collections
+  Keys keys;
+  //Registered Collections (allows collection to mint energy)
    mapping(address=>bool) public registered;
   // token price for ETH
   uint256 public tokensPerEth = 1000;
   address public rewardAddress;
-  // Event that log buy operation
-  event BuyTokens(address buyer, uint256 amountOfETH, uint256 amountOfTokens);
-  event SellTokens(address seller, uint256 amountOfTokens, uint256 amountOfETH);
 
   constructor(address tokenAddress) {
     energy = Energy(tokenAddress);
@@ -52,15 +49,15 @@ contract Vendor is Ownable {
       energy.mint(to, amount);
   }
 
-  function redeem(uint id, uint amount, address rewardContract) public {
-    reward = RewardNFT(rewardContract);
-    uint cost = amount * reward.pricePerReward();
+  function redeemKey(uint id, uint amount) public {
+    keys = Keys(rewardAddress);
+    uint cost = amount * keys.energyPrice();
     require(energy.balanceOf(msg.sender) >= cost, "need more Energy to redeem");
     energy.transferFrom(msg.sender,address(this),cost);
-    reward.safeTransferFrom(reward.owner(), msg.sender, id, amount, "");
+    keys.safeTransferFrom(keys.owner(), msg.sender, id, amount, "");
   }
 
-  function verifyRedemption() public {
-    
+  function setRewardContract(address rewardContract) public onlyOwner{
+    rewardAddress = rewardContract;
   }
 }

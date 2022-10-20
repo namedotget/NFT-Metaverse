@@ -1,15 +1,14 @@
 export const energyContractAddress =
   "0xcf4298804Fd77ac88D72BE16a661E281725C369b";
 export const vendorContractAddress =
-  "0x64AEFAF4A1377432351deb431F5a7145e148F41C";
-export const keysContractAddress = "0xfa72aBb88ad1De6Ec29F2979ad949329d79eb9C4";
+  "0x4C87c8ab9D59985d96D023C2fbed2e97C72d909b";
+export const keysContractAddress = "0x860139880a9dcD0ec4822B8034B2D1cE2AB3c992";
 export const passesContractAddress =
   "0xa4490F5c117025D07A168665FB6569024C03F1aa";
 import keysABI from "../web3/build/keys/abi.json";
 import energyABI from "../web3/build/energy/abi.json";
 import passesABI from "../web3/build/passes/abi.json";
 import vendorABI from "../web3/build/vendor/abi.json";
-
 import { ethers } from "ethers";
 
 export async function checkBalance(sdk, address) {
@@ -73,30 +72,44 @@ export async function userMintNFT(sdk) {
   }
 }
 
-export async function buyKey(sdk, address, id) {
-  //check if user already has key
-  const userKeyBalance = await getKeyBalance(sdk, address, id);
-  if (userKeyBalance > 0) return console.log("user already has key");
-  //increase allowance for vendor
-  const energyContract = sdk.getContractFromAbi(
-    energyContractAddress,
-    energyABI
-  );
-  const vendorContract = sdk.getContractFromAbi(
-    vendorContractAddress,
-    vendorABI
-  );
-  await energyContract.call(
-    "approve",
-    vendorContractAddress,
-    String(5 * 10 ** 18)
-  );
-
-  //redeem
+export async function buyKey(sdk, address, id, notification) {
   try {
-    await vendorContract.call("redeemKey", id, 1);
+    const userKeyBalance = await getKeyBalance(sdk, address, id);
+    if (userKeyBalance > 0) throw new Error("user already has key");
+    //increase allowance for vendor
+    const userEnergyBalance = await getEnergyBalance(sdk, address);
+    if (userEnergyBalance < 5)
+      throw new Error("user does not have enough ENRG");
+    const energyContract = sdk.getContractFromAbi(
+      energyContractAddress,
+      energyABI
+    );
+    const vendorContract = sdk.getContractFromAbi(
+      vendorContractAddress,
+      vendorABI
+    );
+
+    //check allowance
+    const vendorAllowance = JSON.parse(
+      await energyContract.call("allowance", address, vendorContractAddress)
+    );
+    if (vendorAllowance < 5 * 10 ** 18) {
+      notification(
+        "success",
+        "Confirm Transaction to allow NftVerse to spend your ENRG tokens, you will only need to do this the first time"
+      );
+      await energyContract.call(
+        "approve",
+        vendorContractAddress,
+        String(999 * 10 ** 18)
+      );
+    }
+    notification("success", "Confirm Transaction to Buy a 🔑 with ENRG");
+    await vendorContract.call("redeemKey", id, "1");
   } catch (err) {
-    console.log("transaction cancelled");
+    if (err.message.length > 300) throw new Error("❌transaction cancelled");
+    console.log(err);
+    throw err;
   }
 }
 
@@ -104,10 +117,9 @@ export async function spendKey(sdk, address, id) {
   // burn key !!!
   const contract = sdk.getContractFromAbi(keysContractAddress, keysABI);
   try {
-    await contract.call("burn", address, id, 1);
+    await contract.call("burn", address, id, "1");
   } catch (err) {
-    console.log("Oops something went wrong", err.message);
-    return false;
+    throw err;
   }
 }
 ///////////////
@@ -153,3 +165,31 @@ export const PASSES = [
     image: "/images/nfts/pass3.png",
   },
 ];
+
+/////////
+///import ENRG Token ///
+///////
+export async function importENRGToken() {
+  try {
+    // wasAdded is a boolean. Like any RPC method, an error may be thrown.
+    const wasAdded = await ethereum.request({
+      method: "wallet_watchAsset",
+      params: {
+        type: "ERC20", // Initially only supports ERC20, but eventually more!
+        options: {
+          address: energyContractAddress, // The address that the token is at.
+          symbol: "ENRG", // A ticker symbol or shorthand, up to 5 chars.
+          decimals: 18, // The number of decimals in the token
+        },
+      },
+    });
+
+    if (wasAdded) {
+      console.log("Thanks for your interest!");
+    } else {
+      console.log("Your loss!");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
