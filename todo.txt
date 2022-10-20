@@ -55,5 +55,10 @@ Pages & Components:
 
 
 TODO :
-    - fix auth "connect wallet" button
     - add loading screens
+    - add overlay on world start
+    - get artwork for 2 passes and 2 keys 
+    - re-deploy new contracts, update ABIs in build folder
+    - link vending machine to vendor.redeemKey
+    - add buying function for passes (eth or ENRG)
+    - add buying function for ENRG

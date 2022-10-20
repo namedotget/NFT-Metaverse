@@ -9,7 +9,12 @@ export function Description(props) {
   const font = new FontLoader().parse(miso);
   return (
     <mesh {...props}>
-      <textGeometry args={[props.text, { font, size: 0.6, height: 0.25 }]} />
+      <textGeometry
+        args={[
+          props.text,
+          { font, size: props.size || 0.6, height: props.height || 0.25 },
+        ]}
+      />
       <meshPhysicalMaterial attach="material" color={props.color} />
     </mesh>
   );

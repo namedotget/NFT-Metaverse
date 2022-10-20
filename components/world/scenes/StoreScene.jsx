@@ -26,7 +26,7 @@ export function StoreScene(props) {
       >
         <Debug>
           <PhysicCube args={[10, 10]} />
-          <VendingMachine position={[0, 0, 4]} />
+          <VendingMachine position={[0, 0, 4]} user={props.user} />
           <Portal onClick={() => props.goToWorld("main")} text={"main"} />
           <GroundPlane args={[10, 10]} color={"grey"} />
           <Player />

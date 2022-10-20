@@ -10,7 +10,8 @@ import { Player } from "../prefabs/Player";
 import { Room } from "../prefabs/Room";
 import { Portal } from "../prefabs/Portal";
 import { useThree, useFrame } from "@react-three/fiber";
-export function RoomScene(props) {
+import { SecretPortal } from "../prefabs/SecretPortal";
+export function WorldOne(props) {
   return (
     <>
       <pointLight position={[0, 15, 0]} intensity={1} />
@@ -26,7 +27,7 @@ export function RoomScene(props) {
           <Portal onClick={() => props.goToWorld("main")} text={"main"} />
           <GroundPlane args={[50, 50]} color={"grey"} />
           <Suspense fallback={null}>
-            <Trees position={[5, 0, 0]} count={100} boundary={48} type={"3"} />
+            <Trees position={[5, 0, 0]} count={80} boundary={35} type={"3"} />
           </Suspense>
           <Player />
         </Debug>

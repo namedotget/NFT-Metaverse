@@ -1,34 +1,47 @@
 export const energyContractAddress =
   "0xcf4298804Fd77ac88D72BE16a661E281725C369b";
 export const vendorContractAddress =
-  "0x2a5583F6C687Eb773A0f5AEF0Cb074d81935d4A4";
-export const rewardsContractAddress =
-  "0x755210600e7B1bc067e147c03f3b9d43D87BDC6F";
-export const collectionAddress = "0xff2fed9F15462767Ce93f00f9044ebC0a44497b5";
-import rewardABI from "../web3/build/ERC-1155/abi.json";
+  "0x64AEFAF4A1377432351deb431F5a7145e148F41C";
+export const keysContractAddress = "0xfa72aBb88ad1De6Ec29F2979ad949329d79eb9C4";
+export const passesContractAddress =
+  "0xa4490F5c117025D07A168665FB6569024C03F1aa";
+import keysABI from "../web3/build/keys/abi.json";
 import energyABI from "../web3/build/energy/abi.json";
-import collectionABI from "../web3/build/ERC-721/abi.json";
-import { formatEther } from "ethers/lib/utils";
-import { BigNumber, ethers } from "ethers";
-import { useSDK } from "@thirdweb-dev/react";
+import passesABI from "../web3/build/passes/abi.json";
+import vendorABI from "../web3/build/vendor/abi.json";
+
+import { ethers } from "ethers";
 
 export async function checkBalance(sdk, address) {
-  const editionDrop = await sdk.getEditionDrop(collectionAddress);
+  const editionDrop = await sdk.getEditionDrop(passesContractAddress);
   const balance = await editionDrop.balanceOf(address, 0);
   return balance.gt(0);
 }
 
 export async function rewardsOwned(sdk, address) {
-  const contract = sdk.getContractFromAbi(rewardsContractAddress, rewardABI);
+  const contract = sdk.getContractFromAbi(keysContractAddress, keysABI);
   const pixelXP = await contract.call("balanceOf", address, 1);
   const data = JSON.parse(pixelXP);
   return data;
 }
 
-export async function NFTsOwned(sdk, address) {
-  const contract = sdk.getContractFromAbi(collectionAddress, collectionABI);
-  const owned = await contract.call("balanceOf", address);
-  return JSON.parse(owned);
+export async function getPassesOwned(sdk, address) {
+  const contract = sdk.getContractFromAbi(passesContractAddress, passesABI);
+  const owned = await contract.call(
+    "balanceOfBatch",
+    [address, address, address],
+    ["1", "2", "3"]
+  );
+  return owned.map((bigNum) => JSON.parse(bigNum));
+}
+export async function getKeysOwned(sdk, address) {
+  const contract = sdk.getContractFromAbi(keysContractAddress, keysABI);
+  const owned = await contract.call(
+    "balanceOfBatch",
+    [address, address, address],
+    ["1", "2", "3"]
+  );
+  return owned.map((bigNum) => JSON.parse(bigNum));
 }
 
 export async function getEnergyBalance(sdk, address) {
@@ -37,15 +50,19 @@ export async function getEnergyBalance(sdk, address) {
   return String(balance18Digit).slice(0, -18);
 }
 
-export async function getNFTSupply(sdk) {
-  const contract = sdk.getContractFromAbi(collectionAddress, collectionABI);
-  const totalSupply = JSON.parse(await contract.call("totalSupply"));
-  const maxSupply = JSON.parse(await contract.call("maxSupply"));
-  return `${totalSupply}/${maxSupply}`;
+export async function getKeyBalance(sdk, address, id) {
+  const keysContract = sdk.getContractFromAbi(keysContractAddress, keysABI);
+  //check if user already has this key
+  return JSON.parse(await keysContract.call("balanceOf", address, id));
+}
+
+export async function getPassBalance(sdk, address, id) {
+  const contract = sdk.getContractFromAbi(passesContractAddress, passesABI);
+  return JSON.parse(await contract.call("balanceOf", address, id));
 }
 
 export async function userMintNFT(sdk) {
-  const contract = sdk.getContractFromAbi(collectionAddress, collectionABI);
+  const contract = sdk.getContractFromAbi(passesContractAddress, passesABI);
   try {
     await contract.call("mint", 1, {
       value: ethers.utils.parseEther("0.01"),
@@ -56,22 +73,83 @@ export async function userMintNFT(sdk) {
   }
 }
 
+export async function buyKey(sdk, address, id) {
+  //check if user already has key
+  const userKeyBalance = await getKeyBalance(sdk, address, id);
+  if (userKeyBalance > 0) return console.log("user already has key");
+  //increase allowance for vendor
+  const energyContract = sdk.getContractFromAbi(
+    energyContractAddress,
+    energyABI
+  );
+  const vendorContract = sdk.getContractFromAbi(
+    vendorContractAddress,
+    vendorABI
+  );
+  await energyContract.call(
+    "approve",
+    vendorContractAddress,
+    String(5 * 10 ** 18)
+  );
+
+  //redeem
+  try {
+    await vendorContract.call("redeemKey", id, 1);
+  } catch (err) {
+    console.log("transaction cancelled");
+  }
+}
+
+export async function spendKey(sdk, address, id) {
+  // burn key !!!
+  const contract = sdk.getContractFromAbi(keysContractAddress, keysABI);
+  try {
+    await contract.call("burn", address, id, 1);
+  } catch (err) {
+    console.log("Oops something went wrong", err.message);
+    return false;
+  }
+}
 ///////////////
 //REWARDS/////
 //////////////
 
 export const REWARDS = [
   {
-    name: "PixelXP",
-    description: "gain access to the pixel world",
-    image:
-      "https://gateway.pinata.cloud/ipfs/QmakEpKo5aRKK48ZZYcfnqebd3qnDF2synAX1MjVefKd1i/1.png",
-    attributes: [{ trait: "pixelated", value: "XP" }],
+    name: "key1",
+    description: "key for world 1",
+    image: "/images/nfts/key1.png",
   },
   {
-    name: "Key",
-    description: "unlock a part of the world",
-    image: "",
-    attributes: [{ trait: "key", value: "test" }],
+    name: "key2",
+    description: "key for world 2",
+    image: "/images/nfts/key2.png",
+  },
+  {
+    name: "key3",
+    description: "key for world 3",
+    image: "/images/nfts/key3.png",
+  },
+];
+
+///////////////
+//PASSES//////
+//////////////
+
+export const PASSES = [
+  {
+    name: "pass1",
+    descrition: "explore world 1 with this pass",
+    image: "/images/nfts/pass1.png",
+  },
+  {
+    name: "pass2",
+    descrition: "explore world 2 with this pass",
+    image: "/images/nfts/pass2.png",
+  },
+  {
+    name: "pass3",
+    descrition: "explore world 3 with this pass",
+    image: "/images/nfts/pass3.png",
   },
 ];

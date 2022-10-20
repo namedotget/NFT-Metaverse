@@ -3,12 +3,9 @@ import Image from "next/image";
 export default function NFTCollection(props) {
   return (
     <div className={classes.collection}>
-      <h2>Collection</h2>
-      <p>
-        3/100 <br /> have been found !
-      </p>
+      <h2>Pass 1 is live !</h2>
       <div className={classes.img}>
-        <Image src={"/blobguys_prev.gif"} width={300} height={300} />
+        <Image src={"/images/nfts/pass1.png"} width={300} height={300} />
       </div>
     </div>
   );

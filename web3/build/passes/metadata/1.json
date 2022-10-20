@@ -1,0 +1,11 @@
+{
+  "name": "Pass1",
+  "description": "Explore world 1 with this pass!",
+  "image": "ipfs://QmRMCUbk5otVXTzzJXpkjUWywbUmRxazkzUJdGYVVpny8k/1.png",
+  "attributes": [
+    {
+      "trait_type": "Pass",
+      "value": "World 1"
+    }
+  ]
+}

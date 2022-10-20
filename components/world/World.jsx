@@ -2,9 +2,13 @@ import { Canvas } from "@react-three/fiber";
 import { Stats } from "@react-three/drei";
 import { useEffect, useRef, useState, Suspense } from "react";
 import { MainScene } from "./scenes/MainScene";
-import { RoomScene } from "./scenes/RoomScene";
+import { WorldOne } from "./scenes/WorldOne";
 import LoadingScreen from "../UI/LoadingScreen";
-import { getEnergyBalance, rewardsOwned } from "../../web3/thirdweb";
+import {
+  getEnergyBalance,
+  getPassBalance,
+  rewardsOwned,
+} from "../../web3/thirdweb";
 import { useSDK } from "@thirdweb-dev/react";
 import { StoreScene } from "./scenes/StoreScene";
 export default function World(props) {
@@ -14,9 +18,9 @@ export default function World(props) {
   const sdk = useSDK();
   //change scene/world
   async function goToWorld(scene) {
-    if (scene === "room") {
-      const energyBalance = await getEnergyBalance(sdk, user.address);
-      if (energyBalance >= 10) setScene(scene);
+    if (scene === "worldOne") {
+      const pass1Balance = await getPassBalance(sdk, user.address, 1);
+      if (pass1Balance > 0) setScene(scene);
     }
     if (scene === "pixel") {
       const rewardBalance = await rewardsOwned(sdk, user.address);
@@ -42,8 +46,8 @@ export default function World(props) {
         {scene === "main" && (
           <MainScene userData={userData} user={user} goToWorld={goToWorld} />
         )}
-        {scene === "room" && (
-          <RoomScene userData={userData} user={user} goToWorld={goToWorld} />
+        {scene === "worldOne" && (
+          <WorldOne userData={userData} user={user} goToWorld={goToWorld} />
         )}
         {scene === "store" && (
           <StoreScene userData={userData} user={user} goToWorld={goToWorld} />

@@ -1,0 +1,11 @@
+{
+  "name": "Key3",
+  "description": "key for world 3",
+  "image": "ipfs://QmfEwnB7WnZVar6eJbejFiAsrkC7bxLjZi1WLfgFkcPB88/3.png",
+  "attributes": [
+    {
+      "trait_type": "key",
+      "value": "open door"
+    }
+  ]
+}
