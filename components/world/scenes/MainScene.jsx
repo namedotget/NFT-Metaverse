@@ -7,7 +7,6 @@ import { Skybox } from "../prefabs/Skybox";
 import { Trees } from "../prefabs/Trees";
 
 import { Player } from "../prefabs/Player";
-import { MintNFT } from "../prefabs/thirdweb/MintNFT";
 import { Portal } from "../prefabs/Portal";
 export function MainScene(props) {
   const { user } = props;

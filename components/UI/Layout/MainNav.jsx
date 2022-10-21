@@ -8,7 +8,7 @@ import {
 } from "@thirdweb-dev/react";
 import { useEffect, useState } from "react";
 import ProfileModal from "./ProfileModal";
-import { getEnergyBalance, rewardsOwned } from "../../../web3/thirdweb";
+import { getEnergyBalance, getPassesOwned } from "../../../web3/thirdweb";
 
 export default function MainNav(props) {
   const [userData, setUserData] = useState({});
@@ -28,16 +28,16 @@ export default function MainNav(props) {
       else {
         (async () => {
           const energyBalance = await getEnergyBalance(sdk, user.address);
-          const rewardBalance = await rewardsOwned(sdk, user.address);
+          const passesOwned = await getPassesOwned(sdk, user.address);
           setUserData({
             energyBalance,
-            rewardBalance,
+            passesOwned,
           });
           localStorage.setItem("user", JSON.stringify(userData));
         })();
       }
     }
-  }, [user, address, profileModal, hidden]);
+  }, [profileModal]);
 
   return (
     <>
@@ -73,7 +73,10 @@ export default function MainNav(props) {
               </button>
             )}
             <div style={profileModal ? { opacity: 0 } : {}}>
-              <ConnectWallet auth={"/api/auth"} className={classes.connect} />
+              <ConnectWallet
+                auth={{ loginOptional: false }}
+                className={classes.connect}
+              />
             </div>
           </div>
           {profileModal && (

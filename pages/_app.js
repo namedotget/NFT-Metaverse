@@ -21,10 +21,13 @@ function MyApp({ Component, pageProps }) {
   }
   return (
     <ThirdwebProvider
+      chainRpc={{
+        1: process.env.ALCHEMY_RPC_URL,
+      }}
       desiredChainId={activeChainId}
       authConfig={{
         domain: "https://nft-verse.netlify.app",
-        // domain: "localhost:3000",
+        // domain: "http://localhost:3000",
         authUrl: "/api/auth",
         loginRedirect: "/",
       }}

@@ -2,7 +2,7 @@ import classes from "./profile_modal.module.scss";
 import Link from "next/link";
 import Image from "next/image";
 import { ConnectWallet } from "@thirdweb-dev/react";
-import { REWARDS } from "../../../web3/thirdweb";
+import { PASSES } from "../../../web3/thirdweb";
 import EnergyCoin from "../EnergyCoin";
 export default function ProfileModal(props) {
   const { userData } = props;
@@ -13,7 +13,7 @@ export default function ProfileModal(props) {
           <button className={classes.closebtn} onClick={props.close}>
             <Image src={"/images/icons/cross.png"} width={10} height={10} />
           </button>
-          <ConnectWallet className={classes.wallet} auth={"/api/auth"} />
+          <ConnectWallet className={classes.wallet} />
         </div>
       </div>
       <div className={classes.energy}>
@@ -25,11 +25,13 @@ export default function ProfileModal(props) {
       </div>
       <hr></hr>
       <div className={classes.rewards}>
-        {REWARDS.map((reward, i) => (
+        {PASSES.map((reward, i) => (
           <div className={classes.reward} key={`reward${i}`}>
             <p>{reward.name}</p>
             <Image src={reward.image} width={75} height={75} />
-            <p>{userData.rewardBalance}</p>
+            <p>
+              {userData?.passesOwned ? userData?.passesOwned[i] : "loading"}
+            </p>
           </div>
         ))}
       </div>

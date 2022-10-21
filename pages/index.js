@@ -1,8 +1,6 @@
 import Home from "../components/home/Home";
 import { getUser } from "../auth.config";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { useMetamask, useLogin } from "@thirdweb-dev/react";
 export default function HomePage(props) {
   const router = useRouter();
 

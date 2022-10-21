@@ -19,9 +19,9 @@ export async function checkBalance(sdk, address) {
 
 export async function rewardsOwned(sdk, address) {
   const contract = sdk.getContractFromAbi(keysContractAddress, keysABI);
-  const pixelXP = await contract.call("balanceOf", address, 1);
-  const data = JSON.parse(pixelXP);
-  return data;
+  const pixelXP = await contract.call("balanceOf", address, "1");
+
+  return JSON.parse(pixelXP);
 }
 
 export async function getPassesOwned(sdk, address) {

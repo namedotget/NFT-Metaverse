@@ -15,12 +15,12 @@ export default function WorldPage(props) {
   const connect = useMetamask();
   const sdk = useSDK();
   useEffect(() => {
+    if (!address) connect();
     (async () => {
       const energyBalance = await getEnergyBalance(sdk, user.address);
       const rewardBalance = await rewardsOwned(sdk, user.address);
       setUserData({ energyBalance, rewardBalance });
     })();
-    if (!address) connect();
   }, []);
   return (
     <div className="pgContain">

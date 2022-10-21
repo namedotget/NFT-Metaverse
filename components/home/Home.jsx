@@ -1,11 +1,6 @@
 import classes from "./home.module.scss";
-import { Suspense, useRef, useState } from "react";
 import { Canvas, useFrame, useThree, extend } from "@react-three/fiber";
-import OrbNav from "../world/prefabs/OrbNav";
-import CanvasLoader from "../world/prefabs/CanvasLoader";
-import { CrystalRock } from "../world/prefabs/CrystalRock";
 import { Crystal } from "../world/prefabs/Crystal";
-import Link from "next/link";
 export default function Home(props) {
   return (
     <div className={classes.home}>

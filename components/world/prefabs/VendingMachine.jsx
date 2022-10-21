@@ -41,15 +41,14 @@ export function VendingMachine(props) {
     } catch (err) {
       notification("error", err.message);
     }
-    click--;
-    setLoading(false);
+    setTimeout(() => {
+      click--;
+      setLoading(false);
+    }, 3000);
   }
 
   async function spend() {
-    let click = 0;
-    click++;
     setLoading(true);
-    if (click > 1) return;
     try {
       if (loading) return;
       await spendKey(sdk, user.address, 1);
@@ -57,7 +56,9 @@ export function VendingMachine(props) {
     } catch (err) {
       notification("error", "could not burn 🔑");
     }
-    setLoading(false);
+    setTimeout(() => {
+      setLoading(false);
+    }, 5000);
   }
 
   return (

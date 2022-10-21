@@ -21,12 +21,10 @@ export default function Layout(props) {
       </>
     );
   }
-  console.log(props.children.type.name);
   if (
     props.children.type.name === "WorldPage" ||
     props.children.type.name === "J"
   ) {
-    if (!user) ConnectWallet();
     return (
       <div className="UI">
         <MainNav loggedIn world user={user} /> {props.children}
