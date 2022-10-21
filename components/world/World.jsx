@@ -21,10 +21,14 @@ export default function World(props) {
   async function goToWorld(scene) {
     if (scene === "worldOne") {
       const pass1Balance = await getPassBalance(sdk, user.address, 1);
-      if (pass1Balance > 0) setScene(scene);
-      else handleNotification("error", "🎫 pass 1 is required");
+      if (pass1Balance > 0) {
+        setScene(scene);
+        handleNotification("success", "welcome to world one!");
+      } else handleNotification("error", "🎫 pass 1 is required");
     }
-    if (scene === "main" || scene === "store") setScene(scene);
+    if (scene === "main" || scene === "store") {
+      setScene(scene);
+    }
   }
 
   function handleNotification(type, message) {

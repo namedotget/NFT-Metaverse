@@ -10,7 +10,7 @@ import { Player } from "../prefabs/Player";
 import { Portal } from "../prefabs/Portal";
 export function MainScene(props) {
   const { user } = props;
-  console.log(props.userData);
+
   return (
     <>
       <Lights />
@@ -41,9 +41,9 @@ export function MainScene(props) {
           user={user}
         />
         <Suspense fallback={null}>
-          <Trees count={10} boundary={15} type={"1"} position={[-10, 0, 0]} />
+          <Trees count={10} boundary={10} type={"1"} position={[-10, 0, 0]} />
           <Trees position={[10, 0, 0]} count={10} boundary={10} type={"2"} />
-          <Trees position={[0, 0, 10]} count={10} boundary={15} type={"5"} />
+          <Trees position={[0, 0, 10]} count={10} boundary={10} type={"5"} />
         </Suspense>
         <Player />
       </Physics>

@@ -26,8 +26,10 @@ export function WorldOne(props) {
           <Room args={[50, 50]} color={"black"} />
           <Portal onClick={() => props.goToWorld("main")} text={"main"} />
           <GroundPlane args={[50, 50]} color={"grey"} />
+          <SecretPortal position={[0, 0, -5]} />
           <Suspense fallback={null}>
-            <Trees position={[5, 0, 0]} count={80} boundary={35} type={"3"} />
+            <Trees position={[10, 0, 0]} count={20} boundary={15} type={"3"} />
+            <Trees position={[-10, 0, 0]} count={20} boundary={15} type={"3"} />
           </Suspense>
           <Player />
         </Debug>

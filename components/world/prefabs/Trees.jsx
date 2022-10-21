@@ -1,10 +1,7 @@
 import { Detailed } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import { useEffect, useState } from "react";
-import { Tree } from "./Tree";
 import { Tree1 } from "./trees/Tree1";
-import { Raycaster } from "three/src/core/Raycaster";
-import { useBox } from "@react-three/cannon";
 import { Tree2 } from "./trees/Tree2";
 import { Tree3 } from "./trees/Tree3";
 import { Tree4 } from "./trees/Tree4";

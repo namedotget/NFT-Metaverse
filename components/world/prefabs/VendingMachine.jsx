@@ -28,14 +28,13 @@ export function VendingMachine(props) {
   }
 
   //buyKey passes w rewards || buyKey passes on opensea
-  async function clickBuyKey() {
+  async function buy() {
     let click = 0;
     click++;
     if (curItem === 1) return;
     setLoading(true);
     if (click > 1) return;
     try {
-      console.log("test");
       await buyKey(sdk, user.address, curItem + 1, notification);
       notification("success", `Woohoo! You recieved 🔑${curItem + 1}`);
     } catch (err) {
@@ -140,7 +139,7 @@ export function VendingMachine(props) {
 
             <group
               position={[-1.05, -0.31, 2.45]}
-              onClick={!loading ? clickBuyKey : () => console.log("loading")}
+              onClick={!loading ? buy : () => console.log("loading")}
             >
               <RoundedBox args={[0.4, 0.4, 0.5]}>
                 <meshPhongMaterial color={!loading ? "lightgreen" : "green"} />

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { spendKey } from "../../../web3/thirdweb";
-import { PhysicCube } from "./PhysicCube";
 import { useSDK } from "@thirdweb-dev/react";
 export function SecretPortal(props) {
   const { user, id } = props;
@@ -21,10 +20,7 @@ export function SecretPortal(props) {
 
   return (
     <group {...props}>
-      <mesh onClick={openDoor}>
-        <boxGeometry args={[1, 2, 0.25]} />
-        <meshLambertMaterial />
-      </mesh>
+      <mesh />
     </group>
   );
 }
