@@ -4,7 +4,6 @@ import { useBox, useSphere } from "@react-three/cannon";
 import { useFrame } from "@react-three/fiber";
 export function Tree2(props) {
   const meshRef = useRef();
-  const pos = props.position;
   const { rotY } = props;
   const { nodes, materials } = useGLTF("/trees/tree_2.glb");
   const [dropped, setDropped] = useState(false);

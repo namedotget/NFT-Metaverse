@@ -7,6 +7,8 @@ import { Tree3 } from "./trees/Tree3";
 import { Tree4 } from "./trees/Tree4";
 import { Tree5 } from "./trees/Tree5";
 import { Tree6 } from "./trees/Tree6";
+import { Tree7 } from "./trees/Tree7";
+import { Tree8 } from "./trees/Tree8";
 
 export function Trees(props) {
   const { count, boundary, type } = props;
@@ -24,6 +26,8 @@ export function Trees(props) {
       4: <Tree4 position={pos} rotY={rotationY} reward={reward} />,
       5: <Tree5 position={pos} rotY={rotationY} reward={reward} />,
       6: <Tree6 position={pos} rotY={rotationY} reward={reward} />,
+      7: <Tree7 position={pos} rotY={rotationY} reward={reward} />,
+      8: <Tree8 position={pos} rotY={rotationY} reward={reward} />,
     };
     return types[type];
   }

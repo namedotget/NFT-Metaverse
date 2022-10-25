@@ -26,11 +26,12 @@ export function WorldCrystal(props) {
   const sdk = useSDK();
 
   async function refreshBalance() {
-    clearTimeout();
+    if (loading) return;
+    clearTimeout(timer);
     setLoading(true);
     const energyBalance = await getEnergyBalance(sdk, user?.address);
     setBalance(energyBalance);
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setLoading(false);
     }, 1000);
   }
@@ -40,7 +41,7 @@ export function WorldCrystal(props) {
       meshRef.current.rotation.y += 0.0025;
     }
     if (loading) {
-      loadingRef.current.rotation.y += 0.05;
+      loadingRef.current.rotation.y -= 0.05;
     }
   });
   return (
@@ -57,7 +58,7 @@ export function WorldCrystal(props) {
             {loading ? (
               <group ref={loadingRef}>
                 <mesh position={[0, 3, 2.5]}>
-                  <sphereGeometry args={[0.5, 1, 3]} />
+                  <sphereGeometry args={[0.5, 0.5, 3]} />
                   <meshLambertMaterial color={"cyan"} />
                 </mesh>
                 <mesh position={[0, 3, -2.5]}>
@@ -70,11 +71,13 @@ export function WorldCrystal(props) {
                 <Text
                   position={[-1, 2.75, 1.75]}
                   text={balance || props.balance || 0}
+                  size={0.75}
                 />
                 <Text
                   position={[1, 2.75, -1.75]}
                   rotation={[0, Math.PI, 0]}
                   text={balance || props.balance || 0}
+                  size={0.75}
                 />
               </>
             )}

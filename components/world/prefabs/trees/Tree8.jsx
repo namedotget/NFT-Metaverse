@@ -1,10 +1,22 @@
 import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
-
-export function Model(props) {
-  const { nodes, materials } = useGLTF("/tree_8.glb");
+import { useSphere } from "@react-three/cannon";
+export function Tree8(props) {
+  const { rotY } = props;
+  const [cubeRef] = useSphere(() => ({
+    mass: 1000,
+    args: [1.1],
+    material: {
+      friction: 5,
+    },
+    position: [props.position[0], 1, props.position[2]],
+    rotation: [0, rotY, 0],
+    type: "Kinematic",
+  }));
+  const { nodes, materials } = useGLTF("/trees/tree_8.glb");
   return (
-    <group {...props} dispose={null}>
+    <group dispose={null} rotation={[0, rotY, 0]}>
+      <mesh ref={cubeRef} />
       <group rotation={[Math.PI / 2, 0, 0]} scale={7.96}>
         <mesh
           castShadow
@@ -29,4 +41,4 @@ export function Model(props) {
   );
 }
 
-useGLTF.preload("/tree_8.glb");
+useGLTF.preload("/trees/tree_8.glb");

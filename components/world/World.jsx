@@ -1,14 +1,10 @@
 import { Canvas } from "@react-three/fiber";
 import { Stats } from "@react-three/drei";
-import { useEffect, useRef, useState, Suspense } from "react";
+import { useState, Suspense } from "react";
 import { Notification } from "../UI/Notification";
 import { MainScene } from "./scenes/MainScene";
 import { WorldOne } from "./scenes/WorldOne";
-import {
-  getEnergyBalance,
-  getPassBalance,
-  rewardsOwned,
-} from "../../web3/thirdweb";
+import { getEnergyBalance, getPassBalance } from "../../web3/thirdweb";
 import { useSDK } from "@thirdweb-dev/react";
 import { StoreScene } from "./scenes/StoreScene";
 export default function World(props) {
@@ -18,10 +14,15 @@ export default function World(props) {
   const testing = true;
   const sdk = useSDK();
   //change scene/world
-  async function goToWorld(scene) {
+  async function goToWorld(scene, secret) {
     if (scene === "worldOne") {
       const pass1Balance = await getPassBalance(sdk, user.address, 1);
       if (pass1Balance > 0) {
+        if (secret === "secretOne") {
+          setScene("worldOne_secretOne");
+          notification("success", "welcome to the exclusive content");
+          return;
+        }
         setScene(scene);
         handleNotification("success", "welcome to world one!");
       } else handleNotification("error", "🎫 pass 1 is required");
@@ -74,6 +75,7 @@ export default function World(props) {
               notification={handleNotification}
             />
           )}
+          {scene === "worldOne_secretOne" && <WorldOne_SecretOne />}
           {scene === "store" && (
             <StoreScene
               userData={userData}

@@ -6,9 +6,10 @@ import { Trees } from "../prefabs/Trees";
 import { Player } from "../prefabs/Player";
 import { Room } from "../prefabs/Room";
 import { Portal } from "../prefabs/Portal";
-import { SecretPortal } from "../prefabs/SecretPortal";
-export function WorldOne(props) {
-  const { goToWorld, notification } = props;
+import { PhysicCube } from "../../prefabs/PhysicCube";
+
+export function WorldOne_SecretOne(props) {
+  const { user } = props;
   return (
     <>
       <pointLight position={[0, 15, 0]} intensity={1} />
@@ -20,19 +21,14 @@ export function WorldOne(props) {
         broadphase={"SAP"}
       >
         <Debug>
-          <Room args={[50, 50]} color={"black"} />
-          <Portal onClick={() => props.goToWorld("main")} text={"main"} />
+          <PhysicCube  args={[20, 20]} />
+          <Portal onClick={() => props.goToWorld("WorldOne")} text={"WorldOne"} />
           <GroundPlane args={[50, 50]} color={"grey"} />
-          <SecretPortal
-            position={[0, 0, -5]}
-            notification={notification}
-            goToWorld={goToWorld}
-          />
+          <SecretPortal position={[0, 0, -5]} notification={notification} />
           <Suspense fallback={null}>
             <Trees position={[15, 0, 0]} count={20} boundary={15} type={"3"} />
             <Trees position={[-15, 0, 0]} count={20} boundary={15} type={"3"} />
           </Suspense>
-          <SecretPortal position={[0, 0, -5]} user={props.user} />
           <Player />
         </Debug>
       </Physics>

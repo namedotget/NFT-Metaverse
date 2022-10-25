@@ -1,15 +1,8 @@
 import { GroundPlane } from "../prefabs/GroundPlane";
-import { WorldCrystal } from "../prefabs/WorldCrystal";
-import { Suspense, useRef } from "react";
 import { Physics, Debug } from "@react-three/cannon";
 import { Lights } from "../prefabs/Lights";
-import { Skybox } from "../prefabs/Skybox";
-import { Trees } from "../prefabs/Trees";
-
 import { Player } from "../prefabs/Player";
-import { Room } from "../prefabs/Room";
 import { Portal } from "../prefabs/Portal";
-import { useThree, useFrame } from "@react-three/fiber";
 
 import { PhysicCube } from "../prefabs/PhysicCube";
 import { VendingMachine } from "../prefabs/VendingMachine";

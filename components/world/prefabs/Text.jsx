@@ -9,7 +9,12 @@ export function Text(props) {
   const font = new FontLoader().parse(modern);
   return (
     <mesh {...props}>
-      <textGeometry args={[props.text, { font, size: 1, height: 0.25 }]} />
+      <textGeometry
+        args={[
+          props.text,
+          { font, size: props.size, height: props.height || 0.25 },
+        ]}
+      />
       <meshPhysicalMaterial attach="material" color={"cyan"} />
     </mesh>
   );
