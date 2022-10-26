@@ -10,8 +10,6 @@ export function StoreScene(props) {
   const { notification } = props;
   return (
     <>
-      <pointLight position={[0, 15, 0]} intensity={1} />
-      <Lights />
       <Physics
         gravity={[0, -50, 0]}
         tolerance={1}
@@ -19,6 +17,10 @@ export function StoreScene(props) {
         broadphase={"SAP"}
       >
         <Debug>
+          <GroundPlane args={[10, 10]} color={"grey"} />
+
+          <pointLight position={[0, 15, 0]} intensity={1} />
+          <Lights />
           <PhysicCube args={[10, 10]} />
           <VendingMachine
             position={[0, 0, 4]}
@@ -26,7 +28,6 @@ export function StoreScene(props) {
             notification={notification}
           />
           <Portal onClick={() => props.goToWorld("main")} text={"main"} />
-          <GroundPlane args={[10, 10]} color={"grey"} />
           <Player />
         </Debug>
       </Physics>

@@ -24,57 +24,59 @@ import { Tree1 } from "../prefabs/trees/Tree1";
 import { Mushrooms } from "../prefabs/Mushrooms";
 export function MainScene(props) {
   const { user } = props;
-
   return (
     <>
-      <Lights />
-      <Skybox />
       <Physics
         gravity={[0, -50, 0]}
         tolerance={1}
         iterations={50}
         broadphase={"SAP"}
       >
-        <Portal
-          onClick={() => props.goToWorld("worldOne")}
-          text={"world one"}
-          position={[2, 0, -2]}
-        />
-        <Portal
-          onClick={() => props.goToWorld("store")}
-          text={"store"}
-          position={[-2, 0, 3]}
-        />
-        <GroundPlane args={[100, 100]} color={"green"} />
-        <WorldCrystal
-          position={[3, 1, 2]}
-          scale={0.5}
-          animated
-          world
-          balance={props?.userData?.energyBalance}
-          user={user}
-        />
-        <Mushrooms position={[0, 0, -2.5]} boundary={1} count={1} type={1} />
-        <Mush2 position={[2, 0, -5]} />
-        <Mush3 position={[4, 0, -5]} />
-        <Mush4 position={[0, 0, -10]} />
-        <Mush5 position={[2, 0, -10]} />
-        <Mush6 position={[4, 0, -10]} />
-        <Mush7 position={[0, 0, -15]} />
-        <Mush8 position={[2, 0, -15]} />
-        <Mush9 position={[4, 0, -15]} />
-        <Mush10 position={[0, 0, -20]} />
-        <Mush11 position={[2, 0, -20]} />
-        <Mush12 position={[4, 0, -20]} />
-        <Trees position={[-5, 0, 0]} boundary={2} count={1} type={"1"} />
-        <Trees position={[-5, 0, -3]} boundary={1} count={1} type={"2"} />
-        <Trees position={[-5, 0, -6]} boundary={2} count={1} type={"3"} />
-        <Trees position={[-10, 0, 0]} boundary={2} count={1} type={"4"} />
-        <Trees position={[-10, 0, -3]} boundary={2} count={1} type={"5"} />
-        <Trees position={[-10, 0, -6]} boundary={2} count={1} type={"6"} />
-        <Trees position={[-15, 0, 0]} boundary={2} count={1} type={"7"} />
-        <Trees position={[-15, 0, -3]} boundary={2} count={1} type={"8"} />
-        <Player />
+        <Debug>
+          <GroundPlane args={[100, 100]} color={"green"} />
+          <Lights />
+          <Skybox />
+          <Portal
+            onClick={() => props.goToWorld("worldOne")}
+            text={"world one"}
+            position={[2, 0, -2]}
+          />
+          <Portal
+            onClick={() => props.goToWorld("store")}
+            text={"store"}
+            position={[-2, 0, 3]}
+          />
+          <WorldCrystal
+            position={[3, 1, 2]}
+            scale={0.5}
+            animated
+            world
+            balance={props?.userData?.energyBalance}
+            user={user}
+          />
+          <Mushrooms position={[0, 0, -2.5]} boundary={1} count={1} type={1} />
+          <Mush2 position={[2, 0, -5]} />
+          <Mush3 position={[4, 0, -5]} />
+          <Mush4 position={[0, 0, -10]} />
+          <Mush5 position={[2, 0, -10]} />
+          <Mush6 position={[4, 0, -10]} />
+          <Mush7 position={[0, 0, -15]} />
+          <Mush8 position={[2, 0, -15]} />
+          <Mush9 position={[4, 0, -15]} />
+          <Mush10 position={[0, 0, -20]} />
+          <Mush11 position={[2, 0, -20]} />
+          <Mush12 position={[4, 0, -20]} />
+          <Trees position={[-5, 0, 0]} boundary={2} count={1} type={"1"} />
+          <Trees position={[-5, 0, -3]} boundary={1} count={1} type={"2"} />
+          <Trees position={[-5, 0, -6]} boundary={2} count={1} type={"3"} />
+          <Trees position={[-10, 0, 0]} boundary={2} count={1} type={"4"} />
+          <Trees position={[-10, 0, -3]} boundary={2} count={1} type={"5"} />
+          <Trees position={[-10, 0, -6]} boundary={2} count={1} type={"6"} />
+          <Trees position={[-15, 0, 0]} boundary={2} count={1} type={"7"} />
+          <Trees position={[-15, 0, -3]} boundary={2} count={1} type={"8"} />
+
+          <Player />
+        </Debug>
       </Physics>
       <fogExp2 attach="fog" args={["black", 0.08]} />
     </>

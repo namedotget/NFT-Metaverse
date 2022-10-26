@@ -6,6 +6,7 @@ import { OrbitControls } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { useBox, useSphere, useCylinder } from "@react-three/cannon";
+
 let walkDirection = new THREE.Vector3();
 let rotateAngle = new THREE.Vector3(0, 1, 0);
 let rotateQuarternion = new THREE.Quaternion();
@@ -55,7 +56,8 @@ export function Player(props) {
     material: {
       friction: 0,
     },
-    position: [0, 0, 0],
+    position: [0, 0.5, 0],
+    type: "Dynamic",
   }));
 
   function updateCameraTarget(moveX, moveZ) {
@@ -106,42 +108,30 @@ export function Player(props) {
       currentAction.current === "running" ||
       currentAction.current === "walking"
     ) {
-      // calculate towards camera direction
       let angleYCameraDirection = Math.atan2(
         camera.position.x - playerPosition.current[0],
         camera.position.z - playerPosition.current[2]
       );
-
       let newDirectionOffset = directionOffset({
         forward,
         backward,
         left,
         right,
       });
-      // rotate model
       rotateQuarternion.setFromAxisAngle(
         rotateAngle,
         angleYCameraDirection + newDirectionOffset
       );
       group.current.quaternion.rotateTowards(rotateQuarternion, 0.2);
-
-      // calculate direction
       camera.getWorldDirection(walkDirection);
       walkDirection.y = 0;
       walkDirection.normalize();
       walkDirection.applyAxisAngle(rotateAngle, newDirectionOffset);
-
-      // run/walk velocity
       const velocity = currentAction.current == "running" ? 14 : 7;
       const moveX = walkDirection.x * velocity * delta;
       const moveZ = walkDirection.z * velocity * delta;
       api.velocity.set(moveX * 20, 0, moveZ * 20);
       updateCameraTarget(moveX, moveZ);
-      // group.current.position.set(
-      //   playerPosition.current[0],
-      //   playerPosition.current[1] - 0.75,
-      //   playerPosition.current[2]
-      // );
     } else {
       api.velocity.set(0, 0, 0);
     }
@@ -159,7 +149,7 @@ export function Player(props) {
       />
       <group dispose={null} ref={group}>
         <group name="Scene">
-          <mesh ref={sphereRef} />
+          <mesh ref={sphereRef} position={[0, 0.5, 0]} />
           <group name="Armature" rotation={[0, Math.PI, 0]} scale={0.6}>
             <primitive object={nodes.mixamorigHips} />
             <primitive object={nodes.Ctrl_ArmPole_IK_Left} />

@@ -16,9 +16,9 @@ export function SecretPortal(props) {
       setLoading(true);
       const initialKeyBalance = await getKeyBalance(sdk, user?.address, id);
       assert(initialKeyBalance > 0);
-      const spend = await spendKey(sdk, user?.address, id);
+      await spendKey(sdk, user?.address, id);
       const newKeyBalance = await getKeyBalance(sdk, user?.address, id);
-      if (newKeyBalance < initialKeyBalance) setLocked(false);
+      if (newKeyBalance < initialKeyBalance) goToWorld();
     } catch (err) {
       if ((err.message = "false == true")) {
         props?.notification("error", "need 🔑1 to unlock");
@@ -28,12 +28,6 @@ export function SecretPortal(props) {
     setTimeout(() => {
       setLoading(false);
     }, 5000);
-  }
-
-  function openDoor() {
-    // if (locked) return console.log("door is locked, use a key");
-    // else
-    goToWorld("worldOne", "secretOne");
   }
 
   return (
@@ -48,20 +42,13 @@ export function SecretPortal(props) {
         </RoundedBox>
         <Description
           position={[-0.22, -0.03, 0.075]}
-          text={"unlock"}
-          size={"0.15"}
+          text={"use key"}
+          size={"0.12"}
           height={"0.05"}
           color={"limegreen"}
         />
-        <Description
-          position={[-0.5, 0.5, 0]}
-          text={locked ? "locked" : "open"}
-          size={0.35}
-          color={"cyan"}
-        />
       </group>
-
-      <mesh onClick={openDoor}>
+      <mesh>
         <boxGeometry />
         <meshLambertMaterial />
       </mesh>
