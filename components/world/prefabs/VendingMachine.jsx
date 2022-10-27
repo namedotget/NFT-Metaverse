@@ -29,36 +29,33 @@ export function VendingMachine(props) {
 
   //buyKey passes w rewards || buyKey passes on opensea
   async function buy() {
-    let click = 0;
-    click++;
     if (curItem === 1) return;
+    if (loading) return;
     setLoading(true);
-    if (click > 1) return;
     try {
       await buyKey(sdk, user.address, curItem + 1, notification);
       notification("success", `Woohoo! You recieved 🔑${curItem + 1}`);
     } catch (err) {
       notification("error", err.message);
     }
-    setTimeout(() => {
-      click--;
+    return setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 10000);
   }
-
-  async function spend() {
-    setLoading(true);
-    try {
-      if (loading) return;
-      await spendKey(sdk, user.address, 1);
-      notification("success", "🔑 has been burned");
-    } catch (err) {
-      notification("error", "could not burn 🔑");
-    }
-    setTimeout(() => {
-      setLoading(false);
-    }, 5000);
-  }
+  //SPENDING FOR DEV
+  // async function spend() {
+  //   setLoading(true);
+  //   try {
+  //     if (loading) return;
+  //     await spendKey(sdk, user.address, 1);
+  //     notification("success", "🔑 has been burned");
+  //   } catch (err) {
+  //     notification("error", "could not burn 🔑");
+  //   }
+  //   setTimeout(() => {
+  //     setLoading(false);
+  //   }, 5000);
+  // }
 
   return (
     <group
@@ -76,11 +73,7 @@ export function VendingMachine(props) {
               <boxGeometry args={[1.1, 0.25, 2.5]} />
               <meshPhongMaterial color={0xacfcfb} />
             </mesh>
-            <mesh
-              position={[-0.025, -0.627, 3]}
-              rotation={[Math.PI / 2, 0, 0]}
-              onClick={spend}
-            >
+            <mesh position={[-0.025, -0.627, 3]} rotation={[Math.PI / 2, 0, 0]}>
               <planeGeometry args={[0.75, 0.75]} />
               <meshStandardMaterial map={keys[curItem]} />
             </mesh>

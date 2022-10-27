@@ -1,8 +1,6 @@
-import React, { useEffect, useRef, useState, useMemo } from "react";
+import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import Link from "next/link";
-import { useConvexPolyhedron, useTrimesh } from "@react-three/cannon";
 
 export function EnergyReward(props) {
   const meshRef = useRef();

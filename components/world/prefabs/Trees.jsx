@@ -7,9 +7,11 @@ import { Tree3 } from "./trees/Tree3";
 import { Tree4 } from "./trees/Tree4";
 import { Tree5 } from "./trees/Tree5";
 import { Tree6 } from "./trees/Tree6";
+import { Tree7 } from "./trees/Tree7";
+import { Tree8 } from "./trees/Tree8";
 
 export function Trees(props) {
-  const { count, boundary, type } = props;
+  const { count, boundary, type, noClip } = props;
   const parentPosition = props.position || [0, 0, 0];
   const [trees, setTrees] = useState([]);
   const { camera, scene } = useThree();
@@ -18,12 +20,70 @@ export function Trees(props) {
     let { pos, reward } = TreeProps;
     const rotationY = Math.PI / pos[0] / pos[2];
     const types = {
-      1: <Tree1 position={pos} rotY={rotationY} reward={reward} />,
-      2: <Tree2 position={pos} rotY={rotationY} reward={reward} />,
-      3: <Tree3 position={pos} rotY={rotationY} reward={reward} />,
-      4: <Tree4 position={pos} rotY={rotationY} reward={reward} />,
-      5: <Tree5 position={pos} rotY={rotationY} reward={reward} />,
-      6: <Tree6 position={pos} rotY={rotationY} reward={reward} />,
+      1: (
+        <Tree1
+          position={pos}
+          rotY={rotationY}
+          reward={reward}
+          noClip={noClip}
+        />
+      ),
+      2: (
+        <Tree2
+          position={pos}
+          rotY={rotationY}
+          reward={reward}
+          noClip={noClip}
+        />
+      ),
+      3: (
+        <Tree3
+          position={pos}
+          rotY={rotationY}
+          reward={reward}
+          noClip={noClip}
+        />
+      ),
+      4: (
+        <Tree4
+          position={pos}
+          rotY={rotationY}
+          reward={reward}
+          noClip={noClip}
+        />
+      ),
+      5: (
+        <Tree5
+          position={pos}
+          rotY={rotationY}
+          reward={reward}
+          noClip={noClip}
+        />
+      ),
+      6: (
+        <Tree6
+          position={pos}
+          rotY={rotationY}
+          reward={reward}
+          noClip={noClip}
+        />
+      ),
+      7: (
+        <Tree7
+          position={pos}
+          rotY={rotationY}
+          reward={reward}
+          noClip={noClip}
+        />
+      ),
+      8: (
+        <Tree8
+          position={pos}
+          rotY={rotationY}
+          reward={reward}
+          noClip={noClip}
+        />
+      ),
     };
     return types[type];
   }

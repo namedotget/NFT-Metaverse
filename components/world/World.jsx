@@ -1,16 +1,15 @@
 import { Canvas } from "@react-three/fiber";
 import { Stats } from "@react-three/drei";
-import { useEffect, useRef, useState, Suspense } from "react";
+import { Physics, Debug } from "@react-three/cannon";
+import { useState, Suspense } from "react";
 import { Notification } from "../UI/Notification";
 import { MainScene } from "./scenes/MainScene";
 import { WorldOne } from "./scenes/WorldOne";
-import {
-  getEnergyBalance,
-  getPassBalance,
-  rewardsOwned,
-} from "../../web3/thirdweb";
+import { WorldOne_SecretOne } from "./scenes/secrets/WorldOne_SecretOne";
+import { getEnergyBalance, getPassBalance } from "../../web3/thirdweb";
 import { useSDK } from "@thirdweb-dev/react";
 import { StoreScene } from "./scenes/StoreScene";
+import { Player } from "./prefabs/Player";
 export default function World(props) {
   const { user, userData } = props;
   const [scene, setScene] = useState("main");
@@ -18,10 +17,15 @@ export default function World(props) {
   const testing = true;
   const sdk = useSDK();
   //change scene/world
-  async function goToWorld(scene) {
+  async function goToWorld(scene, secret, key) {
     if (scene === "worldOne") {
       const pass1Balance = await getPassBalance(sdk, user.address, 1);
       if (pass1Balance > 0) {
+        if (secret === "secretOne") {
+          setScene("worldOne_secretOne");
+          handleNotification("success", "welcome to the exclusive content");
+          return;
+        }
         setScene(scene);
         handleNotification("success", "welcome to world one!");
       } else handleNotification("error", "🎫 pass 1 is required");
@@ -39,7 +43,7 @@ export default function World(props) {
     });
     const timer = setTimeout(() => {
       setNotification({});
-    }, 4800);
+    }, 3000);
   }
 
   return (
@@ -73,6 +77,9 @@ export default function World(props) {
               goToWorld={goToWorld}
               notification={handleNotification}
             />
+          )}
+          {scene === "worldOne_secretOne" && (
+            <WorldOne_SecretOne user={user} goToWorld={goToWorld} />
           )}
           {scene === "store" && (
             <StoreScene

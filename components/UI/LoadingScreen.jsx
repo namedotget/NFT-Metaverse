@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import classes from "./loading_screen.module.scss";
 
 export default function LoadingScreen() {

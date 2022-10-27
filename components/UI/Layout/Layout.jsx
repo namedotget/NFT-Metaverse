@@ -1,15 +1,5 @@
 import MainNav from "./MainNav";
-import Login from "../../login/Login";
-import {
-  ConnectWallet,
-  useAccount,
-  useAddress,
-  useSDK,
-  useUser,
-} from "@thirdweb-dev/react";
-import { getEnergyBalance, rewardsOwned } from "../../../web3/thirdweb";
-import { useState, useEffect } from "react";
-import { UserWallet } from "@thirdweb-dev/sdk";
+import { useUser } from "@thirdweb-dev/react";
 
 export default function Layout(props) {
   const { user } = useUser();

@@ -9,7 +9,6 @@ title: Red Button
 import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import { useBox } from "@react-three/cannon";
-import { useFrame } from "@react-three/fiber";
 import { useSDK } from "@thirdweb-dev/react";
 import { userMintNFT } from "../../../../web3/thirdweb";
 export function MintNFT(props) {
